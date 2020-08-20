@@ -1,0 +1,1 @@
+const checkRoomId = (id) => (dispatch) => {};

@@ -1,0 +1,2 @@
+export const CHECK_ROOM_ID_SENT = "CHECK_ROOM_ID_SENT";
+export const CHECK_ROOM_ID_RCV = "CHECK_ROOM_ID_RCV";
