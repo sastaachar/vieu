@@ -3,6 +3,7 @@ import {
   SOCKETIO_CONNECTION_CONNECTED,
   SOCKETIO_CONNECTION_FAIL,
   SOCKETIO_CONNECTION_LOST,
+  SOCKETIO_CONNECTION_RETRY,
 } from "./../actions/type";
 
 const initialState = {
@@ -25,7 +26,7 @@ export default function (state = initialState, action) {
         loading: false,
         socket: action.payload,
         connected: true,
-        sokcetError: "",
+        error: "",
       };
     case SOCKETIO_CONNECTION_FAIL:
       return {
@@ -42,7 +43,10 @@ export default function (state = initialState, action) {
         connected: false,
         socket: undefined,
       };
-
+    case SOCKETIO_CONNECTION_RETRY:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

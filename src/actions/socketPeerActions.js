@@ -2,6 +2,9 @@ import Peer from "peerjs";
 import io from "socket.io-client";
 
 import {
+  SERVER_URL,
+  PEER_SERVER_URL,
+  PEER_PORT,
   SOCKETIO_CONNECTION_SENT,
   SOCKETIO_CONNECTION_CONNECTED,
   SOCKETIO_CONNECTION_FAIL,
@@ -10,7 +13,8 @@ import {
   PEER_CONNECTION_CONNECTED,
   PEER_CONNECTION_FAIL,
   PEER_CONNECTION_LOST,
-  SERVER_URL,
+  USER_JOINED,
+  USER_LEFT,
 } from "./type";
 
 export const connectToSocket = (cb) => (dispatch) => {
@@ -20,34 +24,42 @@ export const connectToSocket = (cb) => (dispatch) => {
 
   // conected to socketio server
   socket.on("connect", () => {
-    if (cb) cb(socket);
     dispatch({ type: SOCKETIO_CONNECTION_CONNECTED, payload: socket });
+    if (cb) cb(socket);
   });
 
   // could not establish connection
-  socket.on("connect_failed", (msg) => {
+  socket.on("connect_error", (msg) => {
     dispatch({ type: SOCKETIO_CONNECTION_FAIL, payload: msg });
   });
 
   // socket connection disconnected
-  socket.on("disconnected", () => {
+  socket.on("disconnect", () => {
     dispatch({ type: SOCKETIO_CONNECTION_LOST });
   });
 
-  socket.on("USER_JOINED", (user_id) => {
-    alert(user_id + " joined");
+  socket.on(USER_JOINED, (user) => {
+    dispatch({ type: USER_JOINED, payload: user });
+  });
+
+  socket.on(USER_LEFT, (user) => {
+    dispatch({ type: USER_LEFT, payload: user });
   });
 };
 
 export const connectToPeer = (cb) => (dispatch) => {
   // the given cb will be called once the conn is established
   dispatch({ type: PEER_CONNECTION_SENT });
-  const peer = new Peer();
+  const peer = new Peer(null, {
+    secure: true,
+    host: PEER_SERVER_URL,
+    port: PEER_PORT,
+  });
 
   // connected to peerjs server
   peer.on("open", (peerId) => {
-    if (cb) cb(peerId);
     dispatch({ type: PEER_CONNECTION_CONNECTED, payload: peerId });
+    if (cb) cb(peerId);
   });
 
   // disconected from peerjs server
@@ -57,6 +69,6 @@ export const connectToPeer = (cb) => (dispatch) => {
 
   // error occured
   peer.on("error", (err) => {
-    dispatch({ type: PEER_CONNECTION_FAIL, payload: err.type });
+    dispatch({ type: PEER_CONNECTION_FAIL, payload: err });
   });
 };

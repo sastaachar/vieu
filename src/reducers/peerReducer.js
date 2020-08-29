@@ -3,6 +3,7 @@ import {
   PEER_CONNECTION_CONNECTED,
   PEER_CONNECTION_FAIL,
   PEER_CONNECTION_LOST,
+  PEER_CONNECTION_RETRY,
 } from "./../actions/type";
 
 const initialState = {
@@ -46,6 +47,10 @@ export default function (state = initialState, action) {
         connected: false,
         peerId: undefined,
       };
+
+    case PEER_CONNECTION_RETRY:
+      return {};
+
     default:
       return state;
   }

@@ -19,15 +19,9 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/">
-            <MainPage />
-          </Route>
-          <Route path="/room/:room_id">
-            <RoomPage />
-          </Route>
-          <Route path="/404">
-            <NotFoundPage />
-          </Route>
+          <Route exact path="/" component={MainPage} />
+          <Route path="/room/:room_id" component={RoomPage} />
+          <Route path="/404" component={NotFoundPage} />
           <Redirect to="/404" />
         </Switch>
       </Router>
