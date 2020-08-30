@@ -1,0 +1,9 @@
+.movableCard {
+  position: absolute;
+  border: 1px solid black;
+  cursor: grab;
+  padding: 5px;
+}
+.movableCard:active {
+  cursor: grabbing;
+}
