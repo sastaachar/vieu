@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import UseCard from "./userCard";
+
+// functions
 import {
   connectToSocket,
   connectToPeer,
 } from "../../../actions/socketPeerActions";
 import { checkRoom, joinRoom } from "../../../actions/roomActions";
 
+// css
+import "./room_page.css";
 class RoomPage extends Component {
   state = {
     room_id: "",
@@ -44,18 +49,19 @@ class RoomPage extends Component {
       <div className="room-page-container">
         {this.props.socketConnected &&
         this.props.peerConnected &&
-        this.props.exists ? (
+        this.props.exists &&
+        !this.props.roomJoined ? (
           <div>
             <input type="text" name="userName" onChange={this.handleChange} />
             <button onClick={this.handleJoinRoom}>join room</button>
           </div>
         ) : null}
         {this.props.roomJoined ? (
-          <div>
+          <>
             {this.props.members.map(({ user_id, userName }) => (
-              <span key={user_id}>{userName}</span>
+              <UseCard key={user_id} userName={userName} user_id={user_id} />
             ))}
-          </div>
+          </>
         ) : null}
       </div>
     );

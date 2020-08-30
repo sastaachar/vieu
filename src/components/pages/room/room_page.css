@@ -1,0 +1,8 @@
+.room-page-container {
+  height: 80vh;
+  width: 100vw;
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid red;
+  overflow: hidden;
+}
