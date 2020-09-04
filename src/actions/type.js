@@ -12,12 +12,6 @@ export const SOCKETIO_CONNECTION_FAIL = "SOCKETIO_CONNECTION_FAIL";
 export const SOCKETIO_CONNECTION_LOST = "SOCKETIO_CONNECTION_LOST";
 export const SOCKETIO_CONNECTION_RETRY = "SOCKETIO_CONNECTION_RETRY";
 
-export const PEER_CONNECTION_SENT = "PEER_CONNECTION_SENT ";
-export const PEER_CONNECTION_CONNECTED = "PEER_CONNECTION_CONNECTED";
-export const PEER_CONNECTION_FAIL = "PEER_CONNECTION_FAIL";
-export const PEER_CONNECTION_LOST = "PEER_CONNECTION_LOST ";
-export const PEER_CONNECTION_RETRY = "PEER_CONNECTION_RETRY";
-
 export const JOIN_ROOM_SENT = "JOIN_ROOM_SENT";
 export const JOIN_ROOM_SUCESS = "JOIN_ROOM_SUCESS";
 export const JOIN_ROOM_FAIL = "JOIN_ROOM_FAIL";
@@ -25,11 +19,16 @@ export const JOIN_ROOM_ERROR = "JOIN_ROOM_ERROR";
 
 export const USER_JOINED = "USER_JOINED";
 export const USER_LEFT = "USER_LEFT";
+
 // urls
 
 //peer server on heroku
-export const PEER_SERVER_URL = "vieu-peer.herokuapp.com";
-export const PEER_PORT = 443;
+export const PEER_SERVER_URL =
+  process.env.NODE_ENV === "development"
+    ? "localhost"
+    : "vieu-peer.herokuapp.com";
+
+export const PEER_PORT = process.env.NODE_ENV === "development" ? 9000 : 443;
 
 export const SERVER_URL =
   process.env.NODE_ENV === "development"

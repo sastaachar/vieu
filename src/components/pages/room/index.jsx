@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import UseCard from "./userCard";
+import SelfCard from "./selfCard";
 
 // functions
-import {
-  connectToSocket,
-  connectToPeer,
-} from "../../../actions/socketPeerActions";
+import { connectToSocket } from "../../../actions/socketPeerActions";
 import { checkRoom, joinRoom } from "../../../actions/roomActions";
 
 // css
@@ -16,32 +14,36 @@ class RoomPage extends Component {
   state = {
     room_id: "",
     userName: "",
+    myStream: null,
+    otherStreams: {},
   };
 
   componentDidMount() {
     const room_id = this.props.match.params.room_id;
     this.setState({ room_id });
-    this.props.connectToPeer((user_id) => {
-      this.props.connectToSocket((socket) => {
-        this.props.checkRoom({ socket, room_id });
-      });
+    this.props.connectToSocket((socket) => {
+      this.props.checkRoom({ socket, room_id });
     });
   }
 
   handleJoinRoom = () => {
-    const { socket, user_id } = this.props;
+    const { socket } = this.props;
     const { userName, room_id } = this.state;
 
     if (!userName || !room_id) return;
 
     this.props.joinRoom({
       socket,
-      data: { room_id, user_id, userName },
+      data: { room_id, userName },
     });
   };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  setStream = (stream) => {
+    this.setState({ myStream: stream });
   };
 
   render() {
@@ -56,13 +58,26 @@ class RoomPage extends Component {
             <button onClick={this.handleJoinRoom}>join room</button>
           </div>
         ) : null}
+        {this.props.roomJoined
+          ? this.props.members.map(({ user_id, userName }) => (
+              <UseCard
+                key={user_id}
+                userName={userName}
+                user_id={user_id}
+                stream={this.state.myStream}
+              />
+            ))
+          : null}
         {this.props.roomJoined ? (
-          <>
-            {this.props.members.map(({ user_id, userName }) => (
-              <UseCard key={user_id} userName={userName} user_id={user_id} />
-            ))}
-          </>
+          <SelfCard
+            key={this.props.user_id}
+            userName={this.state.userName}
+            stream={this.state.myStream}
+            setStream={this.setStream}
+          />
         ) : null}
+
+        <button onClick={this.handleCall}>call</button>
       </div>
     );
   }
@@ -73,7 +88,6 @@ const mapStateToProps = (state) => ({
   peerLoading: state.peerData.loading,
   socketConnected: state.socketData.connected,
   peerConnected: state.peerData.connected,
-  user_id: state.peerData.peerId,
   socket: state.socketData.socket,
   loadingGetRoom: state.roomData.loadingGetRoom,
   loadingCheckRoom: state.roomData.loadingCheckRoom,
@@ -85,7 +99,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   connectToSocket,
-  connectToPeer,
+
   checkRoom,
   joinRoom,
 })(RoomPage);

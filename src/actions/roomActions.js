@@ -60,13 +60,20 @@ export const checkRoom = ({ socket, room_id }, cb) => (dispatch) => {
 export const joinRoom = ({ socket, data }, cb) => (dispatch) => {
   dispatch({ type: JOIN_ROOM_SENT });
   try {
-    // data has roomid , userName and userid
-    socket.emit("JOIN_ROOM", data, (data, error) => {
+    // data has roomid , userName
+    socket.emit("JOIN_ROOM", data, (rcvData, error) => {
       if (error) {
         dispatch({ type: JOIN_ROOM_FAIL, payload: error });
         if (cb) cb(false);
       } else {
-        dispatch({ type: JOIN_ROOM_SUCESS, payload: data });
+        const { userName } = data;
+        dispatch({
+          type: JOIN_ROOM_SUCESS,
+          payload: {
+            memberData: rcvData,
+            userData: { user_id: socket.id, userName },
+          },
+        });
         if (cb) cb(true);
       }
     });

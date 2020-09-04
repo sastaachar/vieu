@@ -72,7 +72,8 @@ export default function (state = initialState, action) {
         ...state,
         loadingJoinRoom: false,
         roomJoined: true,
-        members: action.payload.members,
+        members: action.payload.memberData.members,
+        userData: action.payload.userData,
       };
     case JOIN_ROOM_FAIL:
       return {
