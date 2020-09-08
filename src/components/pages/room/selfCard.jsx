@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 
 import MovableCard from "../../shared/movableCard";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 
 const SelfCard = (props) => {
@@ -67,8 +66,6 @@ const SelfCard = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  peer: state.peerData.peer,
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, null)(SelfCard);

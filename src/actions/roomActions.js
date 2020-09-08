@@ -43,6 +43,7 @@ export const checkRoom = ({ socket, room_id }, cb) => (dispatch) => {
   try {
     socket.emit("GET_ROOM", { room_id }, (data, error) => {
       if (error) {
+        console.log(error);
         dispatch({ type: CHECK_ROOM_ID_RCV, payload: { exists: false } });
       } else {
         dispatch({

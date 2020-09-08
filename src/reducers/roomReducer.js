@@ -20,6 +20,7 @@ const initialState = {
   roomJoined: false,
   exists: false,
   error: "",
+  myData: {},
 };
 
 export default function (state = initialState, action) {
@@ -73,7 +74,7 @@ export default function (state = initialState, action) {
         loadingJoinRoom: false,
         roomJoined: true,
         members: action.payload.memberData.members,
-        userData: action.payload.userData,
+        myData: action.payload.userData,
       };
     case JOIN_ROOM_FAIL:
       return {

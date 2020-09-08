@@ -1,4 +1,3 @@
-import Peer from "peerjs";
 import io from "socket.io-client";
 
 import {
@@ -9,6 +8,7 @@ import {
   SOCKETIO_CONNECTION_LOST,
   USER_JOINED,
   USER_LEFT,
+  SENDING_PEER_OFFER,
 } from "./type";
 
 export const connectToSocket = (cb) => (dispatch) => {
@@ -38,9 +38,5 @@ export const connectToSocket = (cb) => (dispatch) => {
 
   socket.on(USER_LEFT, (user) => {
     dispatch({ type: USER_LEFT, payload: user });
-  });
-
-  socket.on("OFFER", (payload) => {
-    console.log(payload);
   });
 };
