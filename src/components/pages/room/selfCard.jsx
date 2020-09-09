@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 
 import MovableCard from "../../shared/movableCard";
 import { connect } from "react-redux";
+import { useEffect } from "react";
 
 const SelfCard = (props) => {
   const videoNode = useRef(null);
@@ -16,25 +17,27 @@ const SelfCard = (props) => {
     });
 
     getMedia.then((stream) => {
-      if (videoNode.current) {
-        videoNode.current.srcObject = stream;
-      }
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       let audioCtx = new AudioContext();
 
       const mediaStreamSource = audioCtx.createMediaStreamSource(stream);
 
       let panner = audioCtx.createStereoPanner();
-      panner.pan.value = -1;
+      panner.pan.value = -10;
 
       mediaStreamSource.connect(panner);
       panner.connect(audioCtx.destination);
 
       setPan(panner);
-
       props.setStream(stream);
     });
   };
+
+  useEffect(() => {
+    if (!videoNode.current) return;
+
+    videoNode.current.srcObject = props.stream;
+  }, [props.stream]);
 
   const userStream = props.stream;
 
