@@ -14,12 +14,14 @@ import "./room_page.css";
 
 const RoomPage = (props) => {
   // storing all peers in a room
+
   const peers = useRef({});
   const setPeers = (newPeers, cb) => {
     peers.current = newPeers;
     if (cb) cb();
   };
 
+  const [streams, setStreams] = useState({});
   const [myStream, setStream] = useState(null);
   const [userName, setUserName] = useState();
   const room_id = props.match.params.room_id;
@@ -29,18 +31,6 @@ const RoomPage = (props) => {
       props.checkRoom({ socket, room_id });
     });
   }, []);
-
-  const callUser = (user_id) => {
-    if (peers.current[user_id]) {
-      console.log("Already connected");
-      return;
-    }
-    console.log(`Calling ${user_id}`);
-    const newPeer = createPeer(user_id);
-    setPeers({ ...peers.current, [user_id]: newPeer }, () => {
-      makeChannel(user_id);
-    });
-  };
 
   const makeChannel = (user_id) => {
     var channel = peers.current[user_id].createDataChannel("chat");
@@ -70,7 +60,7 @@ const RoomPage = (props) => {
       };
     };
     peer.onicecandidate = (e) => handleICECandidateEvent(e, user_id);
-    peer.ontrack = handleTrackEvent;
+    peer.ontrack = (e) => handleTrackEvent(e, user_id);
     peer.onnegotiationneeded = () => handleNegotiationNeededEvent(user_id);
     return peer;
   };
@@ -86,8 +76,12 @@ const RoomPage = (props) => {
       props.socket.emit("ICE_CANDIDATE", payload);
     }
   };
-  const handleTrackEvent = (e) => {
-    console.log("Track", e);
+  const handleTrackEvent = (e, user_id) => {
+    updateStreams(user_id, e.streams[0]);
+  };
+  const updateStreams = (user_id, stream) => {
+    console.log(streams, { ...streams, [user_id]: stream });
+    setStreams((streams) => ({ ...streams, [user_id]: stream }));
   };
 
   const handleNegotiationNeededEvent = (user_id) => {
@@ -108,7 +102,29 @@ const RoomPage = (props) => {
   };
 
   // peer to me
-
+  const sendOffer = (user_id) => {
+    if (peers.current[user_id]) {
+      console.log("Already connected");
+      return;
+    }
+    console.log(`Calling ${user_id}`);
+    const newPeer = createPeer(user_id);
+    setPeers({ ...peers.current, [user_id]: newPeer }, () => {
+      peers.current[user_id]
+        .createOffer()
+        .then((newOffer) => {
+          return peers.current[user_id].setLocalDescription(newOffer);
+        })
+        .then(() => {
+          const payload = {
+            target: user_id,
+            sdp: peers.current[user_id].localDescription,
+          };
+          props.socket.emit("OFFER", payload);
+        })
+        .catch((e) => console.log(e));
+    });
+  };
   // me to server
   const handleJoinRoom = () => {
     const { socket } = props;
@@ -186,10 +202,12 @@ const RoomPage = (props) => {
         ? props.members.map(({ user_id, userName }) => (
             <UseCard
               key={user_id}
-              callUser={() => callUser(user_id)}
+              callUser={() => sendOffer(user_id)}
               userName={userName}
+              peer={peers.current[user_id]}
               user_id={user_id}
               stream={myStream}
+              peerStream={streams[user_id]}
             />
           ))
         : null}

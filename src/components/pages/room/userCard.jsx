@@ -6,11 +6,24 @@ import { connect } from "react-redux";
 const UserCard = (props) => {
   const videoNode = useRef(null);
 
+  useEffect(() => {
+    videoNode.current.srcObject = props.peerStream;
+  }, [props.peerStream]);
+
   return (
     <MovableCard>
       <div className="cardContainer">
         <span>{props.userName}</span>
         <button onClick={props.callUser}>send</button>
+        <button
+          onClick={() => {
+            props.stream.getTracks().forEach((track) => {
+              props.peer.addTrack(track, props.stream);
+            });
+          }}
+        >
+          sendVideo
+        </button>
         <video playsInline autoPlay ref={videoNode} />
       </div>
     </MovableCard>
