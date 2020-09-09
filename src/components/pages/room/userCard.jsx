@@ -18,7 +18,7 @@ const UserCard = (props) => {
         <button
           onClick={() => {
             props.stream.getTracks().forEach((track) => {
-              props.peer.addTrack(track, props.stream);
+              if (props.peer) props.peer.addTrack(track, props.stream);
             });
           }}
         >
