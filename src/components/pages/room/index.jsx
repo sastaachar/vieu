@@ -23,6 +23,7 @@ const RoomPage = (props) => {
 
   const [streams, setStreams] = useState({});
   const [myStream, setStream] = useState(null);
+  const senders = useRef({});
   const [userName, setUserName] = useState();
   const room_id = props.match.params.room_id;
 
@@ -31,16 +32,6 @@ const RoomPage = (props) => {
       props.checkRoom({ socket, room_id });
     });
   }, []);
-
-  const makeChannel = (user_id) => {
-    var channel = peers.current[user_id].createDataChannel("chat");
-    channel.onopen = function (event) {
-      channel.send("Hi you!");
-    };
-    channel.onmessage = function (event) {
-      console.log(event.data);
-    };
-  };
 
   const createPeer = (user_id) => {
     const peer = new RTCPeerConnection({
@@ -207,6 +198,7 @@ const RoomPage = (props) => {
               peer={peers.current[user_id]}
               user_id={user_id}
               stream={myStream}
+              senders={senders.current}
               peerStream={streams[user_id]}
             />
           ))
@@ -217,6 +209,7 @@ const RoomPage = (props) => {
           userName={userName}
           stream={myStream}
           setStream={setStream}
+          senders={senders.current}
         />
       ) : null}
     </div>

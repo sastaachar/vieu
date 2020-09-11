@@ -17,9 +17,13 @@ const UserCard = (props) => {
         <button onClick={props.callUser}>send</button>
         <button
           onClick={() => {
-            props.stream.getTracks().forEach((track) => {
-              if (props.peer) props.peer.addTrack(track, props.stream);
-            });
+            if (props.peer) {
+              const senderList = [];
+              props.stream.getTracks().forEach((track) => {
+                senderList.push(props.peer.addTrack(track, props.stream));
+              });
+              props.senders[props.user_id] = senderList;
+            }
           }}
         >
           sendVideo
