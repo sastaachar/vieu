@@ -13,14 +13,15 @@ const UserCard = (props) => {
   return (
     <MovableCard>
       <div className="cardContainer">
+        {props.connected ? <span>connected dude</span> : null}
         <span>{props.userName}</span>
         <button onClick={props.callUser}>send</button>
         <button
           onClick={() => {
             if (props.peer) {
               const senderList = [];
-              props.stream.getTracks().forEach((track) => {
-                senderList.push(props.peer.addTrack(track, props.stream));
+              props.myStream.getTracks().forEach((track) => {
+                senderList.push(props.peer.addTrack(track, props.myStream));
               });
               props.senders[props.user_id] = senderList;
             }

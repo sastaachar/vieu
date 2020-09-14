@@ -10,7 +10,7 @@ const SelfCard = (props) => {
   const [panner, setPan] = useState(null);
 
   useEffect(() => {
-    if (videoNode.current) {
+    if (videoNode.current && props.stream) {
       videoNode.current.srcObject = props.stream;
     }
   }, [props.stream]);
@@ -23,20 +23,21 @@ const SelfCard = (props) => {
     });
 
     getMedia.then((stream) => {
+      videoNode.current.srcObject = stream;
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       let audioCtx = new AudioContext();
 
       const mediaStreamSource = audioCtx.createMediaStreamSource(stream);
 
       let panner = audioCtx.createStereoPanner();
-      panner.pan.value = -1;
+      panner.pan.value = 1;
 
       mediaStreamSource.connect(panner);
       panner.connect(audioCtx.destination);
 
       setPan(panner);
 
-      props.setStream(stream);
+      props.setMyStream(stream);
     });
   };
 
@@ -59,7 +60,7 @@ const SelfCard = (props) => {
         <button
           onClick={() => {
             const getMedia = navigator.mediaDevices.getUserMedia({
-              audio: true,
+              audio: false,
               video: true,
             });
 
@@ -77,7 +78,7 @@ const SelfCard = (props) => {
                     }
                   });
                 });
-                props.setStream(stream);
+                props.setMyStream(stream);
               })
               .catch((e) => console.log(e));
           }}
@@ -95,6 +96,13 @@ const SelfCard = (props) => {
           mute audio
         </button>
         <button onClick={startCapture}>pan</button>
+        <button
+          onClick={() => {
+            panner.pan.value = -1 * panner.pan.value;
+          }}
+        >
+          flip
+        </button>
       </div>
     </MovableCard>
   );

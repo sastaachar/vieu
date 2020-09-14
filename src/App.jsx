@@ -11,7 +11,7 @@ import "./App.css";
 
 import store from "./store";
 import MainPage from "./components/pages/main";
-import RoomPage from "./components/pages/room";
+import RoomPage from "./components/pages/room/roomIndex";
 import NotFoundPage from "./components/pages/notFound";
 
 function App() {
