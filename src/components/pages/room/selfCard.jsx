@@ -66,15 +66,20 @@ const SelfCard = (props) => {
 
             getMedia
               .then((stream) => {
-                const videoTrack = stream.getTracks()[1];
+                const videoTrack = stream.getTracks()[0];
                 console.log("new track ", videoTrack);
                 Object.entries(props.senders).forEach((ele) => {
                   const senderList = ele[1];
-                  console.log("Replacing track ", senderList);
                   senderList.forEach((sender) => {
                     if (sender.track.kind === "video") {
-                      console.log("Replacing track ", sender);
-                      sender.replaceTrack(videoTrack);
+                      sender
+                        .replaceTrack(videoTrack)
+                        .then((e) => {
+                          console.log("video goes brrrrrrrr", e);
+                        })
+                        .catch(() => {
+                          console.log("nai hua lode tera");
+                        });
                     }
                   });
                 });
