@@ -7,6 +7,7 @@ const UserCard = (props) => {
   const videoNode = useRef(null);
 
   useEffect(() => {
+    console.log("Stream updated", props.peerStream);
     videoNode.current.srcObject = props.peerStream;
   }, [props.peerStream]);
 
@@ -14,6 +15,7 @@ const UserCard = (props) => {
     <MovableCard>
       <div className="cardContainer">
         {props.connected ? <span>connected dude</span> : null}
+
         <span>{props.userName}</span>
         <button onClick={props.callUser}>send</button>
         <button

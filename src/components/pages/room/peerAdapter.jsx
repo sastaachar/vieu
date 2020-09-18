@@ -84,7 +84,6 @@ const PeerAdapter = (props) => {
     // skip the first call
     if (!props.socket) return;
 
-    console.log("Effect called...");
     const { socket } = props;
 
     props.socket.on(
@@ -117,6 +116,8 @@ const PeerAdapter = (props) => {
               target: user_id,
               sdp: newRemotePeer.localDescription,
             };
+            setStatus({ ...connStatus, [user_id]: true });
+            console.log(connStatus);
             props.socket.emit("ANSWER", payload);
           });
       },
@@ -157,8 +158,6 @@ const PeerAdapter = (props) => {
       socket.off("ICE_CANDIDATE");
     };
   }, [props.socket]);
-
-  console.log(props.children);
 
   return (
     <>

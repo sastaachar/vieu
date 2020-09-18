@@ -17,7 +17,6 @@ const SocketAdapter = (props) => {
 
   useEffect(() => {
     props.connectToSocket((socket) => {
-      console.log(props);
       props.checkRoom({ socket, room_id: props.toJoinRoomId });
     });
   }, []);
