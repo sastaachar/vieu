@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
-import MovableCard from "../../shared/movableCard";
+import MovableCard from "../../../shared/movableCard";
 import { connect } from "react-redux";
 
 const UserCard = (props) => {
@@ -32,6 +32,13 @@ const UserCard = (props) => {
           sendVideo
         </button>
         <video playsInline autoPlay ref={videoNode} />
+        <button
+          onClick={() => {
+            console.log(props.peerStream.getTracks());
+          }}
+        >
+          click me
+        </button>
       </div>
     </MovableCard>
   );

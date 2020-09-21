@@ -8,9 +8,6 @@ import { connect } from "react-redux";
 import { connectToSocket } from "../../../actions/socketPeerActions";
 import { checkRoom, joinRoom } from "../../../actions/roomActions";
 
-// components
-import JoinRoom from "./joinRoom";
-
 const SocketAdapter = (props) => {
   // on mount -> connect to server
   // fetch room details
@@ -21,10 +18,12 @@ const SocketAdapter = (props) => {
     });
   }, []);
 
+  // render children only after the socket gets connected
+
   return (
     <div className="close">
       {props.loading ? <span>Connecting to server.....</span> : null}
-      {props.connected ? <JoinRoom /> : null}
+      {props.connected ? props.children : null}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import MovableCard from "../../shared/movableCard";
+import MovableCard from "../../../shared/movableCard";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 

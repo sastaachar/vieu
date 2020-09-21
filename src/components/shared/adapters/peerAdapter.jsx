@@ -159,6 +159,7 @@ const PeerAdapter = (props) => {
     };
   }, [props.socket]);
 
+  // the children will be passed with new props
   return (
     <>
       {React.cloneElement(props.children, {

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 // functions
-import { joinRoom } from "../../../actions/roomActions";
+import { joinRoom } from "../../../../actions/roomActions";
 
 // components
-import RoomDisplay from "./roomDisplay";
-import PeerAdapter from "./peerAdapter";
+import RoomDisplay from "../roomDisplay";
+import PeerAdapter from "../../../shared/adapters/peerAdapter";
 
 const JoinRoom = (props) => {
   const { exists, loading, room_id, members } = props;

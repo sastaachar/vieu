@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 // components
-import UseCard from "../userCard";
-import SelfCard from "../selfCard";
+import UseCard from "../cards/userCard";
+import SelfCard from "../cards/selfCard";
 
 // csss
-import "../room_page.css";
+import "./style.css";
 
 const RoomDisplay = (props) => {
   const callPeer = (user_id) => {

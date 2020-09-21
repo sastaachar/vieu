@@ -22,6 +22,8 @@ export const JOIN_ROOM_ERROR = "JOIN_ROOM_ERROR";
 export const USER_JOINED = "USER_JOINED";
 export const USER_LEFT = "USER_LEFT";
 
+export const CHANGE_STREAM_STATE = "CHANGE_STREAM_STATE";
+
 // urls
 
 //peer server on heroku
