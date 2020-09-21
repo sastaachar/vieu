@@ -1,27 +1,30 @@
 .room-page-container {
-    height: 80vh;
-    width: 100vw;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-    background-color: #1E1E1E;
+  height: 80vh;
+  width: 100vw;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background-color: #1e1e1e;
 }
 
 .cardContainer {
-    border: 1px solid #FAB565;
-    padding: 15px;
-    background-color: #FF00FF;
+  border: 1px solid #fab565;
+  padding: 15px;
+  background-color: #ff00ff;
 }
 
 .cardContainer span {
-    background: brown;
-    cursor: pointer;
+  background: brown;
+  cursor: pointer;
 }
 
 video {
-    transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-    /* Safari and Chrome */
-    -moz-transform: rotateY(180deg);
-    /* Firefox */
+  width: 448px;
+  height: 252px;
+
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  /* Safari and Chrome */
+  -moz-transform: rotateY(180deg);
+  /* Firefox */
 }
