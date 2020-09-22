@@ -13,6 +13,11 @@ const PeerAdapter = (props) => {
 
   // connection answered
   const [connStatus, setStatus] = useState({});
+  const newConn = (user_id) => {
+    console.log("previous ", connStatus);
+    console.log("new status ", { ...connStatus, [user_id]: true });
+    setStatus({ ...connStatus, [user_id]: true });
+  };
 
   const callPeer = (user_id) => {
     console.log(peers.current);
@@ -116,8 +121,8 @@ const PeerAdapter = (props) => {
               target: user_id,
               sdp: newRemotePeer.localDescription,
             };
-            setStatus({ ...connStatus, [user_id]: true });
-            console.log(connStatus);
+            newConn(user_id);
+
             props.socket.emit("ANSWER", payload);
           });
       },
@@ -136,7 +141,8 @@ const PeerAdapter = (props) => {
         .setRemoteDescription(desc)
         .then((data) => {
           // set conn as true
-          setStatus({ ...connStatus, [incoming.caller]: true });
+          console.log(connStatus, { ...connStatus, [incoming.caller]: true });
+          newConn(incoming.caller);
         })
         .catch((e) => console.log(e));
     });
@@ -152,6 +158,7 @@ const PeerAdapter = (props) => {
 
     // call everyone
     props.members.forEach(({ user_id }) => {
+      console.log(`Adding ${user_id}`);
       createPeer(user_id);
       callPeer(user_id);
     });
@@ -168,6 +175,13 @@ const PeerAdapter = (props) => {
   // the children will be passed with new props
   return (
     <>
+      <button
+        onClick={() => {
+          console.log(connStatus);
+        }}
+      >
+        bitch
+      </button>
       {React.cloneElement(props.children, {
         // all the remote peers
         peers: peers.current,
