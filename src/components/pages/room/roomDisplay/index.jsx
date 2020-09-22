@@ -11,7 +11,7 @@ import "./style.css";
 
 const RoomDisplay = (props) => {
   const callPeer = (user_id) => {
-    const newPeer = props.createPeer(user_id);
+    props.createPeer(user_id);
     props.callPeer(user_id);
   };
 

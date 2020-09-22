@@ -43,7 +43,8 @@ const SelfCard = (props) => {
               });
 
             // send every one new stream
-            Object.entries(props.senders).forEach((sender) => {
+            Object.entries(props.senders).forEach((value) => {
+              const sender = value[1][0];
               stream.getTracks().forEach((track) => {
                 if (track.kind === sender.track.kind) {
                   sender
@@ -74,6 +75,85 @@ const SelfCard = (props) => {
       console.log(err);
     }
   };
+
+  const changeState = (kind) => {
+    try {
+      // flip the state of kind
+      const { stream: userStream, streamState } = props;
+
+      // if kind is on
+      if (streamState[kind]) {
+        userStream.getTracks().forEach((track) => {
+          if (track.kind === kind) track.stop();
+        });
+        // update local state
+        props.updateStreamState({
+          audio: streamState.audio,
+          video: !streamState.video,
+        });
+        // update remote state
+        // socket calls
+      } else {
+        const other = kind === "video" ? "audio" : "video";
+
+        // preserve other kind's state and flip current's state
+        const getMedia = navigator.mediaDevices.getUserMedia({
+          [kind]: !streamState[kind],
+          [other]: streamState[other],
+        });
+
+        getMedia
+          .then((stream) => {
+            // replace all senders stream
+            const { senders, members } = props;
+            const allStream = stream.getTracks();
+            let kindTrack, otherTrack;
+            allStream.forEach((track) => {
+              if (track.kind === kind) kindTrack = track;
+              else otherTrack = track;
+            });
+
+            // we need to send/replace our tracks
+            // for all our users
+            // TODO :- filter bloacked users
+            members.forEach(({ user_id }) => {
+              if (senders[user_id]) {
+              } else {
+              }
+            });
+
+            let trackExists = false;
+            const trackUpdates = [];
+            // replace senders tracks
+            for (const id in senders) {
+              const sender = senders[id][0];
+              if (sender.track.kind === other) {
+                trackUpdates.push(sender.replaceTrack(otherTrack));
+              } else {
+                trackExists = true;
+                trackUpdates.push(sender.replaceTrack(kindTrack));
+              }
+            }
+
+            // sending for first time
+            if (!trackExists) {
+              for (const id in senders) {
+                const sender = senders[id][0];
+                sender.addTrack(kindTrack);
+              }
+            }
+          })
+          .catch(() => {});
+      }
+    } catch (err) {
+      if (err instanceof MediaError) {
+        alert("Device not available");
+      } else {
+        console.log(err);
+      }
+    }
+  };
+
   const changeAudioState = () => {
     const { stream: userStream, streamState } = props;
     try {
@@ -94,13 +174,19 @@ const SelfCard = (props) => {
         getMedia
           .then((stream) => {
             // disable all previous streams
-            userStream.getTracks().forEach((track) => {
-              track.stop();
-            });
+            if (userStream)
+              userStream.getTracks().forEach((track) => {
+                track.stop();
+              });
 
             // send every one new stream
-            Object.entries(props.senders).forEach((sender) => {
-              stream.getTracks().forEach((track) => {
+            Object.entries(props.senders).forEach((value) => {
+              const sender = value[1][0];
+
+              const audioTracks = stream.getAudioTracks();
+
+              audioTracks.forEach((track) => {
+                console.log(sender.track);
                 if (track.kind === sender.track.kind) {
                   sender
                     .replaceTrack(track)
@@ -122,6 +208,7 @@ const SelfCard = (props) => {
             props.setMyStream(stream);
           })
           .catch((e) => {
+            console.log(e);
             console.log("Could not access your camera or microphone");
             return;
           });
@@ -148,6 +235,7 @@ const SelfCard = (props) => {
 
 const mapStateToProps = (state) => ({
   streamState: state.streamData,
+  members: state.roomData.members,
 });
 
 export default connect(mapStateToProps, { updateStreamState })(SelfCard);
