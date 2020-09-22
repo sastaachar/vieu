@@ -10,11 +10,6 @@ import SelfCard from "../cards/selfCard";
 import "./style.css";
 
 const RoomDisplay = (props) => {
-  const callPeer = (user_id) => {
-    const newPeer = props.createPeer(user_id);
-    props.callPeer(user_id);
-  };
-
   const [myStream, setMyStream] = useState();
 
   return (
@@ -24,7 +19,6 @@ const RoomDisplay = (props) => {
           key={user_id}
           user_id={user_id}
           userName={userName}
-          callUser={() => callPeer(user_id)}
           peer={props.peers[user_id]}
           myStream={myStream}
           peerStream={props.streams[user_id]}

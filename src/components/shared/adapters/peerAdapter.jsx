@@ -150,6 +150,12 @@ const PeerAdapter = (props) => {
         .catch((e) => console.log(e));
     });
 
+    // call everyone
+    props.members.forEach(({ user_id }) => {
+      createPeer(user_id);
+      callPeer(user_id);
+    });
+
     // cleanup
     return () => {
       console.log("Cleanup called...");
@@ -181,6 +187,7 @@ const PeerAdapter = (props) => {
 
 const mapStateToProps = (state) => ({
   socket: state.socketData.socket,
+  members: state.roomData.members,
 });
 
 export default connect(mapStateToProps, null)(PeerAdapter);

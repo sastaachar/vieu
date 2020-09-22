@@ -17,7 +17,6 @@ const UserCard = (props) => {
         {props.connected ? <span>connected dude</span> : null}
 
         <span>{props.userName}</span>
-        <button onClick={props.callUser}>send</button>
         <button
           onClick={() => {
             if (props.peer) {
