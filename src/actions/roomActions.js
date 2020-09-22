@@ -1,3 +1,6 @@
+// used for stable unique keys
+import { v4 as uuidv4 } from "uuid";
+
 import {
   SERVER_URL,
   CREATE_NEW_ROOM_SENT,
@@ -46,9 +49,15 @@ export const checkRoom = ({ socket, room_id }, cb) => (dispatch) => {
         console.log(error);
         dispatch({ type: CHECK_ROOM_ID_RCV, payload: { exists: false } });
       } else {
+        // we need stable keys for render
+        const members = data.members.map((userName) => ({
+          pseudoId: uuidv4(),
+          userName,
+        }));
+
         dispatch({
           type: CHECK_ROOM_ID_RCV,
-          payload: { exists: true, members: data.members },
+          payload: { exists: true, members, room_id },
         });
         if (cb) cb(data);
       }

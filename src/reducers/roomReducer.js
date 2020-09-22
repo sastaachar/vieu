@@ -53,6 +53,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loadingCheckRoom: false,
+        room_id: action.payload.room_id,
         chkMembers: action.payload.members,
         exists: action.payload.exists,
       };
