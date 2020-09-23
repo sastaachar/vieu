@@ -14,9 +14,11 @@ const PeerAdapter = (props) => {
   // connection answered
   const [connStatus, setStatus] = useState({});
   const newConn = (user_id) => {
-    console.log("previous ", connStatus);
-    console.log("new status ", { ...connStatus, [user_id]: true });
-    setStatus({ ...connStatus, [user_id]: true });
+    setStatus((prevState) => {
+      // returning { ...prevState, [user_id]: true } directly wont work
+      const newState = { ...prevState, [user_id]: true };
+      return newState;
+    });
   };
 
   const callPeer = (user_id) => {
