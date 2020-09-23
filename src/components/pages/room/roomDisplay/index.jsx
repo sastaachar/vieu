@@ -11,7 +11,7 @@ import "./style.css";
 
 const RoomDisplay = (props) => {
   const [myStream, setMyStream] = useState();
-  console.log("Connection status", props.connStatus);
+
   return (
     <div>
       {props.members.map(({ user_id, userName }) => (
