@@ -8,6 +8,8 @@ import { joinRoom } from "../../../../actions/roomActions";
 import RoomDisplay from "../roomDisplay";
 import PeerAdapter from "../../../shared/adapters/peerAdapter";
 
+import "./style.css";
+
 const JoinRoom = (props) => {
   const { exists, loading, room_id, members } = props;
 
@@ -31,19 +33,41 @@ const JoinRoom = (props) => {
   }
 
   return (
-    <div>
+    <div className="joinRoom-wrapper simple-layout">
+      {loading ? <span>Finding your room....</span> : null}
       {exists ? (
-        <div>
-          <span>{`Room id : ${room_id}`}</span>
-          {members.map(({ pseudoId, userName }) => (
-            <span key={pseudoId}>{userName} </span>
-          ))}
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
-          <button onClick={handleJoinRoom}>join room</button>
+        <div className="joinRoom-box">
+          <h2>Join room</h2>
+          <div>
+            <section className="usernameInput">
+              <span>who are you ?</span>
+              <input
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="username"
+              />
+              <a onClick={handleJoinRoom} className="simple-btn">
+                join room
+              </a>
+            </section>
+            <section className="memberList">
+              <span>Members :</span>
+              <div>
+                {/* need that " " or css goes crazy */}
+                {members.map(({ pseudoId, userName }) => (
+                  <span key={pseudoId}>{userName}</span>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       ) : null}
-      {!loading && !exists ? <span>No room</span> : null}
-      {loading ? <span>Finding your room....</span> : null}
+      {!loading && !exists ? (
+        <div className="noRoom-box">
+          <span>No such room</span>
+          <a href="#">go back</a>
+        </div>
+      ) : null}
     </div>
   );
 };
