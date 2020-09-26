@@ -53,10 +53,13 @@ const JoinRoom = (props) => {
             <section className="memberList">
               <span>Members :</span>
               <div>
-                {/* need that " " or css goes crazy */}
-                {members.map(({ pseudoId, userName }) => (
-                  <span key={pseudoId}>{userName}</span>
-                ))}
+                {Object.keys(members).length === 0 ? (
+                  <span>Its so empty, sad.</span>
+                ) : (
+                  members.map(({ pseudoId, userName }) => (
+                    <span key={pseudoId}>{userName}</span>
+                  ))
+                )}
               </div>
             </section>
           </div>
