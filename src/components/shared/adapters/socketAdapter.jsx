@@ -21,10 +21,10 @@ const SocketAdapter = (props) => {
   // render children only after the socket gets connected
 
   return (
-    <div className="close">
+    <>
       {props.loading ? <span>Connecting to server.....</span> : null}
       {props.connected ? props.children : null}
-    </div>
+    </>
   );
 };
 
