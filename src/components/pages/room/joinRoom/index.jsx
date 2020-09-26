@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 // functions
 import { joinRoom } from "../../../../actions/roomActions";
@@ -68,7 +69,7 @@ const JoinRoom = (props) => {
       {!loading && !exists ? (
         <div className="noRoom-box">
           <span>No such room</span>
-          <a href="#">go back</a>
+          <Link to="/">go back</Link>
         </div>
       ) : null}
     </div>

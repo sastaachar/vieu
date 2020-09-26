@@ -13,19 +13,21 @@ const RoomDisplay = (props) => {
   const [myStream, setMyStream] = useState();
 
   return (
-    <div>
-      {props.members.map(({ user_id, userName }) => (
-        <UseCard
-          key={user_id}
-          user_id={user_id}
-          userName={userName}
-          peer={props.peers[user_id]}
-          myStream={myStream}
-          peerStream={props.streams[user_id]}
-          senders={props.senders}
-          connected={props.connStatus[user_id]}
-        />
-      ))}
+    <div className="roomDisplay-wrapper simple-layout">
+      <div className="peerDisplay">
+        {props.members.map(({ user_id, userName }) => (
+          <UseCard
+            key={user_id}
+            user_id={user_id}
+            userName={userName}
+            peer={props.peers[user_id]}
+            myStream={myStream}
+            peerStream={props.streams[user_id]}
+            senders={props.senders}
+            connected={props.connStatus[user_id]}
+          />
+        ))}
+      </div>
       <SelfCard
         key={props.my_id}
         userName={props.userName}

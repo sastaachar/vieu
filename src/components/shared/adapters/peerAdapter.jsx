@@ -177,13 +177,6 @@ const PeerAdapter = (props) => {
   // the children will be passed with new props
   return (
     <>
-      <button
-        onClick={() => {
-          console.log(connStatus);
-        }}
-      >
-        bitch
-      </button>
       {React.cloneElement(props.children, {
         // all the remote peers
         peers: peers.current,

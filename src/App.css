@@ -33,6 +33,10 @@
     transform: scale(1.2, 1.2);
 }
 
+.disclaimer {
+    font-size: 12px;
+}
+
 .noselect {
     -webkit-touch-callout: none;
     /* iOS Safari */

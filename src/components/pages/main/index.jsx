@@ -47,6 +47,12 @@ const MainPage = (props) => {
           </a>
           {props.roomReqLoading ? <span>Req sent...</span> : null}
         </section>
+        <p className="disclaimer">
+          <span>Note : This is a application is still in Pre-alpha. </span>
+          <a href="https://www.agora.io/en/" target="_blank">
+            About us
+          </a>
+        </p>
       </div>
     </div>
   );
