@@ -1,0 +1,48 @@
+/* .mainPage-wrapper {
+} */
+
+.mainPage-box {
+    width: 30%;
+    position: absolute;
+    bottom: 50%;
+    left: 7%;
+}
+
+.roomIdInputs {
+    margin-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.roomIdInputs input {
+    height: 28px;
+    width: 70%;
+    border: none;
+    margin: none;
+    border-radius: 3px;
+}
+
+.roomIdInputs>div {
+    display: flex;
+}
+
+
+/* redirect btns */
+
+
+/* go btn */
+
+.roomIdInputs a {
+    width: 10%;
+    min-width: 30px;
+    display: block;
+    margin-left: 10px;
+    text-align: center;
+}
+
+
+/* craete room btn */
+
+.createRoom .simple-btn {
+    text-decoration: none;
+}
