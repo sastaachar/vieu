@@ -1,30 +1,56 @@
-.room-page-container {
-  height: 80vh;
-  width: 100vw;
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden;
-  background-color: #1e1e1e;
+.roomDisplay-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 
 .cardContainer {
-  border: 1px solid #fab565;
-  padding: 15px;
-  background-color: #ff00ff;
+    border: 1px solid #fab565;
+    padding: 15px;
+    background-color: #ff00ff;
 }
 
 .cardContainer span {
-  background: brown;
-  cursor: pointer;
+    background: brown;
+    cursor: pointer;
 }
 
 video {
-  width: 448px;
-  height: 252px;
+    width: 448px;
+    height: 252px;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    /* Safari and Chrome */
+    -moz-transform: rotateY(180deg);
+    /* Firefox */
+}
 
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  /* Safari and Chrome */
-  -moz-transform: rotateY(180deg);
-  /* Firefox */
+
+/* controll panel */
+
+.controllPanel {
+    height: 60px;
+    width: 350px;
+    position: fixed;
+    bottom: 0px;
+    left: calc(50% - (350px/2));
+    background-color: white;
+    border-radius: 20px 20px 0px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnCtrl {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    background-size: cover;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-color: black;
+    margin: 10px;
+}
+
+.btnCtrl:hover {
+    background-color: gray;
 }

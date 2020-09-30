@@ -134,7 +134,7 @@ const SelfCard = (props) => {
   return (
     <MovableCard>
       <div className="cardContainer">
-        <video playsInline autoPlay ref={videoNode} />
+        <video playsInline autoPlay ref={videoNode} muted />
         {props.streamState.video ? <span>v</span> : null}
         {props.streamState.audio ? <span>a</span> : null}
         <div className="card-btnContainter">

@@ -22,7 +22,6 @@ const PeerAdapter = (props) => {
   };
 
   const callPeer = (user_id) => {
-    console.log(peers.current);
     // craete a offer , send
     peers.current[user_id]
       .createOffer()
@@ -41,7 +40,7 @@ const PeerAdapter = (props) => {
   const createPeer = (user_id) => {
     if (peers.current[user_id]) {
       // a connection already exists
-      console.log("createPeer -> a connection already exists");
+
       return;
     }
 
@@ -70,7 +69,6 @@ const PeerAdapter = (props) => {
     // got new track for a remote peer i.e user_id
     peer.ontrack = (e) => {
       // new track is e.streams[0]
-      console.log("new treack from ", user_id);
       setStreams({ ...streams, [user_id]: e.streams[0] });
     };
 
@@ -97,7 +95,7 @@ const PeerAdapter = (props) => {
       "OFFER",
       (offer) => {
         // got a offer
-        console.log("PeerAdapter -> got a offer");
+
         const user_id = offer.caller;
 
         let newRemotePeer = peers.current[user_id];
@@ -134,16 +132,14 @@ const PeerAdapter = (props) => {
     props.socket.on("ANSWER", (incoming) => {
       // peer accepted our call
       // handle answer
-      console.log(
-        "PeerAdapter -> // peer accepted our call Recieved a answer..."
-      );
+
       const desc = new RTCSessionDescription(incoming.sdp);
 
       peers.current[incoming.caller]
         .setRemoteDescription(desc)
         .then((data) => {
           // set conn as true
-          console.log(connStatus, { ...connStatus, [incoming.caller]: true });
+
           newConn(incoming.caller);
         })
         .catch((e) => console.log(e));
@@ -160,7 +156,6 @@ const PeerAdapter = (props) => {
 
     // call everyone
     props.members.forEach(({ user_id }) => {
-      console.log(`Adding ${user_id}`);
       createPeer(user_id);
       callPeer(user_id);
     });

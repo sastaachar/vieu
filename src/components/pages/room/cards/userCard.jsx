@@ -17,19 +17,7 @@ const UserCard = (props) => {
         {props.connected ? <span>connected dude</span> : null}
 
         <span>{props.userName}</span>
-        <button
-          onClick={() => {
-            if (props.peer) {
-              const senderList = [];
-              props.myStream.getTracks().forEach((track) => {
-                senderList.push(props.peer.addTrack(track, props.myStream));
-              });
-              props.senders[props.user_id] = senderList;
-            }
-          }}
-        >
-          sendVideo
-        </button>
+        <button onClick={() => {}}>sendVideo</button>
         <video playsInline autoPlay ref={videoNode} />
         <button
           onClick={() => {
