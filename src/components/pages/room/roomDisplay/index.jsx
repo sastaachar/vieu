@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 
 // components
@@ -20,10 +20,10 @@ import { useEffect } from "react";
 
 const RoomDisplay = (props) => {
   const [myStream, setMyStream] = useState();
-
-  useEffect(() => {
-    console.log(props.connStatus);
-  }, [props.connStatus]);
+  const streamsSentTo = useRef([]);
+  const setStreamSentTo = (newState) => {
+    setStreamSentTo.current = newState;
+  };
 
   const changeState = (kind) => {
     try {
@@ -50,6 +50,8 @@ const RoomDisplay = (props) => {
           [kind]: true,
           [otherKind]: streamState[otherKind],
         });
+
+        streamsSentTo.current = props.members;
 
         getMedia
           .then((stream) => {
@@ -93,12 +95,13 @@ const RoomDisplay = (props) => {
               } else {
                 // need to add new sender
                 // addTrack
-
-                senders[user_id] = [
-                  props.peers[user_id].addTrack(kindTrack, stream),
-                ];
+                console.log("We dont do that here !");
+                // senders[user_id] = [
+                //   props.peers[user_id].addTrack(kindTrack, stream),
+                // ];
               }
             });
+            setMyStream(stream);
             props.updateStreamState(
               {
                 [otherKind]: streamState[otherKind],
@@ -107,7 +110,6 @@ const RoomDisplay = (props) => {
               props.socket
             );
             // need to replace my current stream with new one
-            setMyStream(stream);
           })
           .catch(() => {});
       }

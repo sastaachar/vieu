@@ -14,7 +14,6 @@ const MovableCard = (props) => {
     setOffset({ x, y });
     setGrab(true);
   };
-
   const handleMove = (e) => {
     let x = e.clientX + offset.x,
       y = e.clientY + offset.y;
