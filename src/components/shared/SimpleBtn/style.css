@@ -1,0 +1,57 @@
+.simpleBtn {
+    position: relative;
+    background: var(--primary-2);
+    color: black;
+    width: fit-content;
+    font-family: inherit;
+    font-size: 24px;
+    padding: 5px 14px;
+    margin : 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.simpleBtn:active {
+    box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25), inset -4px -4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.simpleBtn  a{
+    /* for <a> we have to put color here */
+    color: black;
+    text-decoration: none;
+
+}
+.simpleBtn:hover::before {
+    content: "";
+    display: inline-block;
+    width: 70px;
+    height: 100%;
+
+    position: absolute; 
+    top: 0%;
+    left :  -100px;
+     
+    background: rgb(60,65,159);
+    background: linear-gradient(90deg, rgba(60,65,159,0.4) 0%, rgba(255,255,255,0.4) 50%, rgba(60,65,159,0.4) 100%);    
+    animation: 0.6s shine linear;
+}
+
+/* 
+    You need to add the skew to the animation 
+    or else the animation rule will overwrite it. 
+*/
+@keyframes shine {
+
+    0% { 
+       
+        transform:  skewX(30deg) translateX(0%);
+    }
+    100% {
+
+        transform:  skewX(30deg) translateX(300px);
+    }
+
+}
+
