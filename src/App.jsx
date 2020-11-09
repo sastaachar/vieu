@@ -17,14 +17,12 @@ import NotFoundPage from "./components/pages/notFound";
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route path="/room/:room_id" component={RoomPage} />
-          <Route path="/404" component={NotFoundPage} />
-          <Redirect to="/404" />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route path="/room/:room_id" component={RoomPage} />
+        <Route path="/404" component={NotFoundPage} />
+        <Redirect to="/404" />
+      </Switch>
     </Provider>
   );
 }
