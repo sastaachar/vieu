@@ -1,3 +1,4 @@
+/* Simple Button */
 .simpleBtn {
     position: relative;
     background: var(--primary-2);
@@ -55,3 +56,17 @@
 
 }
 
+/* Simple Input */
+
+.simpleInp {
+    background: var(--secondary-2);
+    font-size: 24px;
+    font-family: inherit;
+    border-radius: 4px;
+   
+    max-width: 30%;
+       
+
+    padding: 5px 14px;
+    margin : 10px;
+}

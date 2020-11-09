@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./style.css";
+import "./SimpleStyle.css";
 
 const SimpleBtn = (props) => {
   return (
@@ -10,4 +10,8 @@ const SimpleBtn = (props) => {
   );
 };
 
-export default SimpleBtn;
+const SimpleInp = (props) => {
+  return <input className="simpleInp" {...props} />;
+};
+
+export { SimpleBtn, SimpleInp };
