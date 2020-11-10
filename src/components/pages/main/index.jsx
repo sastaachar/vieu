@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
+// functions
 import { getNewRoom } from "../../../actions/roomActions";
+
+// assets
+import GroupSvg from "./Group.jsx";
+import Logo from "../../shared/Logo/Logo";
+import Divider from "../../../assets/Misc/clipPath.svg";
+
+// components
+import { SimpleBtn, SimpleInp } from "../../shared/Simple";
 
 import "./style.css";
 
@@ -26,34 +34,40 @@ const MainPage = (props) => {
   }
 
   return (
-    <div className="mainPage-wrapper simple-layout">
-      <div className="mainPage-box ">
-        <section className="roomIdInputs">
-          <label htmlFor="room_id">Enter Room id :</label>
-          <div>
-            <input
-              id="room_id"
-              type="text"
-              onChange={(e) => setRoomid(e.target.value)}
-            />
-            <Link to={`/room/${room_id}`} className="simple-btn">
-              go
-            </Link>
-          </div>
-        </section>
-        <section className="createRoom">
-          <a onClick={handleCreateRoom} href="#" className="simple-btn">
-            create room
-          </a>
-          {props.roomReqLoading ? <span>Req sent...</span> : null}
-        </section>
-        <p className="disclaimer">
+    <div className="mainPage-wrapper clear">
+      <img src={Divider} id="divider" />
+      <section className="mainPg-left">
+        <Logo />
+
+        <label htmlFor="room_id">Enter Room id :</label>
+        <SimpleInp
+          id="room_id"
+          type="text"
+          onChange={(e) => setRoomid(e.target.value)}
+        />
+
+        <SimpleBtn onClick={handleCreateRoom}>
+          <Link to={`/room/${room_id}`}>go</Link>
+        </SimpleBtn>
+        <SimpleBtn onClick={handleCreateRoom}>
+          <span>create room</span>
+        </SimpleBtn>
+        {props.roomReqLoading ? <span>Req sent...</span> : null}
+        <p>
           <span>Note : This is a application is still in Pre-alpha. </span>
-          <a href="https://www.agora.io/en/" target="_blank">
-            About us
-          </a>
         </p>
-      </div>
+      </section>
+
+      <section className="mainPg-right">
+        <nav className="mainNavBar">
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </nav>
+        <GroupSvg />
+      </section>
     </div>
   );
 };

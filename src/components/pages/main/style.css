@@ -1,48 +1,71 @@
-/* .mainPage-wrapper {
-} */
-
-.mainPage-box {
-    width: 30%;
-    position: absolute;
-    bottom: 50%;
-    left: 7%;
+.mainPage-wrapper { 
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: fit-content;
+    height: 100%;
+    background-color: var(--primary);    
 }
 
-.roomIdInputs {
-    margin-bottom: 10%;
+
+.mainPage-wrapper section {
+    position: relative;
+    height: 100%;
     display: flex;
+    
+}
+
+/* left side */
+.mainPg-left { 
+    min-width: 43.1%;
     flex-direction: column;
 }
 
-.roomIdInputs input {
-    height: 28px;
-    width: 70%;
-    border: none;
-    margin: none;
-    border-radius: 3px;
+#divider {
+    position: absolute;
+    left:0px;
+    height: 100%;
+    width: 43.1%;
 }
 
-.roomIdInputs>div {
+
+
+/* right side */
+
+.mainPg-right { 
+  
+    
+     width: 100%;
+    left : 0;
+    justify-content: center;
+    align-items: center;
+}
+#groupSvg {
+    position: relative;
+    display: block;   
+    width: 83%;
+    min-width: 600px;
+}
+
+.mainNavBar ul {
+    position: absolute;
+    top:0px;
+    right : 0px;
     display: flex;
+       list-style: none;
+    padding: 0px;
+    margin: 0px;
 }
 
-
-/* redirect btns */
-
-
-/* go btn */
-
-.roomIdInputs a {
-    width: 10%;
-    min-width: 30px;
-    display: block;
-    margin-left: 10px;
-    text-align: center;
+  
+.dottedPaths {
+    stroke-dasharray: 4 12;
+    animation: dash 30s linear infinite;
 }
-
-
-/* craete room btn */
-
-.createRoom .simple-btn {
-    text-decoration: none;
+  
+@keyframes dash {
+   to {
+    stroke-dashoffset: 1000;
+  }
 }
+  
