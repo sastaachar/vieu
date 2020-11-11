@@ -39,23 +39,24 @@ const MainPage = (props) => {
       <section className="mainPg-left">
         <Logo />
 
-        <label htmlFor="room_id">Enter Room id :</label>
-        <SimpleInp
-          id="room_id"
-          type="text"
-          onChange={(e) => setRoomid(e.target.value)}
-        />
-
-        <SimpleBtn onClick={handleCreateRoom}>
-          <Link to={`/room/${room_id}`}>go</Link>
-        </SimpleBtn>
-        <SimpleBtn onClick={handleCreateRoom}>
-          <span>create room</span>
-        </SimpleBtn>
-        {props.roomReqLoading ? <span>Req sent...</span> : null}
-        <p>
-          <span>Note : This is a application is still in Pre-alpha. </span>
-        </p>
+        <div className="mainPg-content">
+          <div className="roomId-input">
+            <label htmlFor="room_id">Enter Room id :</label>
+            <SimpleInp
+              id="room_id"
+              type="text"
+              onChange={(e) => setRoomid(e.target.value)}
+            />
+            <SimpleBtn onClick={handleCreateRoom}>
+              <Link to={`/room/${room_id}`}>go</Link>
+            </SimpleBtn>
+          </div>
+          <span>OR</span>
+          <SimpleBtn onClick={handleCreateRoom}>
+            <span>create room</span>
+          </SimpleBtn>
+          {props.roomReqLoading ? <span>Req sent...</span> : null}
+        </div>
       </section>
 
       <section className="mainPg-right">

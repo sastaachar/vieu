@@ -1,3 +1,6 @@
+
+
+
 .mainPage-wrapper { 
     position: relative;
     display: flex;
@@ -5,6 +8,7 @@
     min-width: fit-content;
     height: 100%;
     background-color: var(--primary);    
+    
 }
 
 
@@ -12,14 +16,49 @@
     position: relative;
     height: 100%;
     display: flex;
-    
+    justify-content: center;    
 }
 
 /* left side */
 .mainPg-left { 
+    position: relative;
+    display: flex;
     min-width: 43.1%;
     flex-direction: column;
+    height: 100%;
+    padding-left: 40px;
+}   
+
+
+.mainPg-left .logo {
+    position: absolute;
+    top:40px;
 }
+
+.mainPg-content {   
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.roomId-input > label {
+    display: block;
+    margin-bottom: 20px;
+}
+.roomId-input > .simpleBtn {
+    margin-left: 30px;
+}
+
+
+.mainPg-content > span {
+    /* OR */
+    color: black;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 40px 0px;
+}
+
 
 #divider {
     position: absolute;
@@ -29,13 +68,11 @@
 }
 
 
-
 /* right side */
 
 .mainPg-right { 
-  
-    
-     width: 100%;
+    display: inline-block;
+    width: 100%;
     left : 0;
     justify-content: center;
     align-items: center;
@@ -68,4 +105,39 @@
     stroke-dashoffset: 1000;
   }
 }
-  
+
+
+@media only screen and (max-width: 769px) {
+    .mainPg-right {
+        display: none !important;
+        border: 1px solid red;
+        padding: 0px; 
+    }
+    
+    .mainPg-left , .mainPg-content, .roomId-input {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0px ; 
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainPg-left .logo {
+        position: absolute;
+        top:10px;
+        left : 20px;
+    }
+
+    #divider {
+        position: absolute;
+        left:0px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .roomId-input > .simpleBtn {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+}

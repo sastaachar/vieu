@@ -1,20 +1,16 @@
 .logo {
-    position: relative;
-    width: 6vw;
-    height: 12vh;
+    display: inline-block;
+    height: auto;
+    width: auto;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 .logo svg {
-    display: block;   
-    
-     
+    width: 12vh;
 }
 
 .logo span {
+    position: relative;
 
-    position: relative;    
     color : var(--primary-2);
-    top : -25px;
-    left  : 70px;
-    font-size: 30px;
+    font-size: 36px;
 }
