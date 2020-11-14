@@ -77,12 +77,12 @@
     justify-content: center;
     align-items: center;
 }
-#groupSvg {
+.mainPg-right svg {
     position: relative;
     display: block;   
     width: 83%;
-    min-width: 600px;
 }
+
 
 .mainNavBar ul {
     position: absolute;
@@ -95,22 +95,12 @@
 }
 
   
-.dottedPaths {
-    stroke-dasharray: 4 12;
-    animation: dash 30s linear infinite;
-}
-  
-@keyframes dash {
-   to {
-    stroke-dashoffset: 1000;
-  }
-}
+
 
 
 @media only screen and (max-width: 769px) {
     .mainPg-right {
         display: none !important;
-        border: 1px solid red;
         padding: 0px; 
     }
     

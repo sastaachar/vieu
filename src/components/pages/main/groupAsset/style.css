@@ -1,0 +1,10 @@
+.dottedPaths {
+    stroke-dasharray: 4 12;
+    animation: dash 30s linear infinite;
+}
+  
+@keyframes dash {
+   to {
+    stroke-dashoffset: 1000;
+  }
+}

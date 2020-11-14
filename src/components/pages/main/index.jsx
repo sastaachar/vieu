@@ -6,7 +6,7 @@ import { Redirect, Link } from "react-router-dom";
 import { getNewRoom } from "../../../actions/roomActions";
 
 // assets
-import GroupSvg from "./Group.jsx";
+import GroupSvg from "./groupAsset";
 import Logo from "../../shared/Logo/Logo";
 import Divider from "../../../assets/Misc/clipPath.svg";
 
