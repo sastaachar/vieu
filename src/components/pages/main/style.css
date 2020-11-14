@@ -32,7 +32,7 @@
 
 .mainPg-left .logo {
     position: absolute;
-    top:40px;
+    top:1vh;
 }
 
 .mainPg-content {   
@@ -83,17 +83,35 @@
     width: 83%;
 }
 
+/* nav bar */
 
 .mainNavBar ul {
     position: absolute;
-    top:0px;
-    right : 0px;
+    top: 0px;
+    right : 5vw;
     display: flex;
-       list-style: none;
-    padding: 0px;
-    margin: 0px;
+    list-style: none;
+    margin:0px;
+    padding: 1vh 0px;
+    background: var(--secondary-2);
+    border-radius: 0px 0px 6px 6px;
 }
 
+.mainNavBar li {
+    margin: 0px 15px;
+    font-size: 24x;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    color : var(--secondary);
+    transition: letter-spacing 0.5s;
+}
+
+.mainNavBar li:hover {
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color : var(--primary);
+}
   
 
 
