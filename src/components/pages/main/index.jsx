@@ -60,15 +60,15 @@ const MainPage = (props) => {
       </section>
 
       <section className="mainPg-right">
-        <nav className="mainNavBar">
-          <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-          </ul>
-        </nav>
         <GroupSvg />
       </section>
+      <nav className="mainNavBar">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+      </nav>
     </div>
   );
 };

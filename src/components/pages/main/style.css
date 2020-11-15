@@ -111,6 +111,7 @@
     font-weight: 900;
     letter-spacing: 0.3em;
     color : var(--primary);
+    text-decoration: underline;
 }
   
 
