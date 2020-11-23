@@ -1,152 +1,141 @@
-
-
-
-.mainPage-wrapper { 
-    position: relative;
-    display: flex;
-    width: 100%;
-    min-width: fit-content;
-    height: 100%;
-    background-color: var(--primary);    
-    
+.mainPage-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: fit-content;
+  height: 100%;
+  background-color: var(--primary);
 }
 
-
 .mainPage-wrapper section {
-    position: relative;
-    height: 100%;
-    display: flex;
-    justify-content: center;    
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* left side */
-.mainPg-left { 
-    position: relative;
-    display: flex;
-    min-width: 43.1%;
-    flex-direction: column;
-    height: 100%;
-    padding-left: 40px;
-}   
-
-
-.mainPg-left .logo {
-    position: absolute;
-    top:1vh;
+.mainPg-left {
+  position: relative;
+  display: flex;
+  min-width: 43.1%;
+  flex-direction: column;
+  height: 100%;
+  padding-left: 40px;
 }
 
-.mainPg-content {   
-    display: flex;
-    flex-direction: column;
-  
+.mainPg-left .logo {
+  position: absolute;
+  top: 1vh;
+}
+
+.mainPg-content {
+  display: flex;
+  flex-direction: column;
 }
 
 .roomId-input > label {
-    display: block;
-    margin-bottom: 20px;
+  display: block;
+  margin-bottom: 20px;
 }
-.roomId-input > .simpleBtn {
-    margin-left: 30px;
+.roomId-input > .simple-btn {
+  margin-left: 30px;
 }
-
 
 .mainPg-content > span {
-    /* OR */
-    color: black;
-    font-family: inherit;
-    font-size: 24px;
-    font-weight: 600;
-    margin: 40px 0px;
+  /* OR */
+  color: black;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 40px 0px;
 }
-
 
 #divider {
-    position: absolute;
-    left:0px;
-    height: 100%;
-    width: 43.1%;
+  position: absolute;
+  left: 0px;
+  height: 100%;
+  width: 43.1%;
 }
-
 
 /* right side */
 
-.mainPg-right { 
-    display: inline-block;
-    width: 100%;
-    left : 0;
-    justify-content: center;
-    align-items: center;
+.mainPg-right {
+  display: inline-block;
+  width: 100%;
+  left: 0;
+  justify-content: center;
+  align-items: center;
 }
 .mainPg-right svg {
-    position: relative;
-    display: block;   
-    width: 83%;
+  position: relative;
+  display: block;
+  width: 83%;
 }
 
 /* nav bar */
 
 .mainNavBar ul {
-    position: absolute;
-    top: 0px;
-    right : 5vw;
-    display: flex;
-    list-style: none;
-    margin:0px;
-    padding: 1vh 0px;
-    background: var(--secondary-2);
-    border-radius: 0px 0px 6px 6px;
+  position: absolute;
+  top: 0px;
+  right: 5vw;
+  display: flex;
+  list-style: none;
+  margin: 0px;
+  padding: 1vh 0px;
+  background: var(--secondary-2);
+  border-radius: 0px 0px 6px 6px;
 }
 
 .mainNavBar li {
-    margin: 0px 15px;
-    font-size: 24x;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    color : var(--secondary);
-    transition: letter-spacing 0.5s;
+  margin: 0px 15px;
+  font-size: 24x;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  color: var(--secondary);
+  transition: letter-spacing 0.5s;
 }
 
 .mainNavBar li:hover {
-    font-weight: 900;
-    letter-spacing: 0.3em;
-    color : var(--primary);
-    text-decoration: underline;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: var(--primary);
+  text-decoration: underline;
 }
-  
-
-
 
 @media only screen and (max-width: 769px) {
-    .mainPg-right {
-        display: none !important;
-        padding: 0px; 
-    }
-    
-    .mainPg-left , .mainPg-content, .roomId-input {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding-left: 0px ; 
-        justify-content: center;
-        align-items: center;
-    }
+  .mainPg-right {
+    display: none !important;
+    padding: 0px;
+  }
 
-    .mainPg-left .logo {
-        position: absolute;
-        top:10px;
-        left : 20px;
-    }
+  .mainPg-left,
+  .mainPg-content,
+  .roomId-input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
+    justify-content: center;
+    align-items: center;
+  }
 
-    #divider {
-        position: absolute;
-        left:0px;
-        height: 100%;
-        width: 100%;
-    }
-    
-    .roomId-input > .simpleBtn {
-        margin-left: 0px;
-        margin-top: 10px;
-    }
+  .mainPg-left .logo {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  }
+
+  #divider {
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .roomId-input > .simple-btn {
+    margin-left: 0px;
+    margin-top: 10px;
+  }
 }

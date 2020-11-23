@@ -4,14 +4,14 @@ import "./SimpleStyle.css";
 
 const SimpleBtn = (props) => {
   return (
-    <button className="simpleBtn" onClick={props.onClick}>
+    <button className="simple-btn" onClick={props.onClick}>
       {props.children}
     </button>
   );
 };
 
 const SimpleInp = (props) => {
-  return <input className="simpleInp" {...props} />;
+  return <input className="simple-inp" {...props} />;
 };
 
 export { SimpleBtn, SimpleInp };
