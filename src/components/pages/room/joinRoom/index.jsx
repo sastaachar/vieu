@@ -8,6 +8,7 @@ import { joinRoom } from "../../../../actions/roomActions";
 // components
 import RoomDisplay from "../roomDisplay";
 import PeerAdapter from "../../../shared/adapters/peerAdapter";
+import { SimpleBtn, SimpleInp } from "../../../shared/Simple";
 
 import "./style.css";
 
@@ -34,7 +35,7 @@ const JoinRoom = (props) => {
   }
 
   return (
-    <div className="joinRoom-wrapper simple-layout">
+    <div className="joinRoom-wrapper">
       {loading ? <span>Finding your room....</span> : null}
       {exists ? (
         <div className="joinRoom-box">
@@ -42,14 +43,14 @@ const JoinRoom = (props) => {
           <div>
             <section className="usernameInput">
               <span>who are you ?</span>
-              <input
+              <SimpleInp
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="username"
               />
-              <a onClick={handleJoinRoom} className="simple-btn">
+              <SimpleBtn onClick={handleJoinRoom} className="simple-btn">
                 join room
-              </a>
+              </SimpleBtn>
             </section>
             <section className="memberList">
               <span>Members :</span>
