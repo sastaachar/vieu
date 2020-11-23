@@ -1,34 +1,43 @@
 .roomDisplay-wrapper {
-    position: relative;
-    overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--primary);
 }
 
+.roomDisplay-box {
+  background-color: var(--primary);
+}
+
+.peerDisplay {
+}
 /* controll panel */
 
 .controllPanel {
-    height: 60px;
-    width: 350px;
-    position: fixed;
-    bottom: 0px;
-    left: calc(50% - (350px/2));
-    background-color: white;
-    border-radius: 20px 20px 0px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 60px;
+  width: 350px;
+  position: fixed;
+  bottom: 0px;
+  left: calc(50% - (350px / 2));
+  background-color: var(--primary-2);
+  border-radius: 20px 20px 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btnCtrl {
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
-    background-size: cover;
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-color: black;
-    margin: 10px;
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  background-size: cover;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-color: black;
+  margin: 10px;
 }
 
 .btnCtrl:hover {
-    background-color: gray;
+  background-color: gray;
 }

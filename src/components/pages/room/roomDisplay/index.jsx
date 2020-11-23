@@ -126,7 +126,7 @@ const RoomDisplay = (props) => {
   const vidImg = props.streamState.video ? VidcamOn : VidcamOff;
 
   return (
-    <div className="simple-layout roomDisplay-wrapper">
+    <div className="roomDisplay-wrapper">
       <div className="roomDisplay-box">
         <div className="peerDisplay">
           {props.members.map(({ user_id, userName }) => (
