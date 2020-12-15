@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/vieu/static/css/main.ee1ce41d.chunk.css",
+    "main.js": "/vieu/static/js/main.885798bd.chunk.js",
+    "main.js.map": "/vieu/static/js/main.885798bd.chunk.js.map",
+    "runtime-main.js": "/vieu/static/js/runtime-main.96d133b5.js",
+    "runtime-main.js.map": "/vieu/static/js/runtime-main.96d133b5.js.map",
+    "static/js/2.95cb4830.chunk.js": "/vieu/static/js/2.95cb4830.chunk.js",
+    "static/js/2.95cb4830.chunk.js.map": "/vieu/static/js/2.95cb4830.chunk.js.map",
+    "index.html": "/vieu/index.html",
+    "precache-manifest.d75aebd4d160a6c4bf5cbe1cf54fc9cc.js": "/vieu/precache-manifest.d75aebd4d160a6c4bf5cbe1cf54fc9cc.js",
+    "service-worker.js": "/vieu/service-worker.js",
+    "static/css/main.ee1ce41d.chunk.css.map": "/vieu/static/css/main.ee1ce41d.chunk.css.map",
+    "static/js/2.95cb4830.chunk.js.LICENSE.txt": "/vieu/static/js/2.95cb4830.chunk.js.LICENSE.txt",
+    "static/media/clipPath.svg": "/vieu/static/media/clipPath.16143cfe.svg",
+    "static/media/mic-off.svg": "/vieu/static/media/mic-off.4b9ed2d1.svg",
+    "static/media/mic-on.svg": "/vieu/static/media/mic-on.e74d3c4c.svg",
+    "static/media/videocam-off.svg": "/vieu/static/media/videocam-off.62fdc105.svg",
+    "static/media/videocam-on.svg": "/vieu/static/media/videocam-on.9900fcc0.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.96d133b5.js",
+    "static/js/2.95cb4830.chunk.js",
+    "static/css/main.ee1ce41d.chunk.css",
+    "static/js/main.885798bd.chunk.js"
+  ]
+}
