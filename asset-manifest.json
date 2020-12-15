@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/vieu/static/css/main.ee1ce41d.chunk.css",
-    "main.js": "/vieu/static/js/main.f612c55e.chunk.js",
-    "main.js.map": "/vieu/static/js/main.f612c55e.chunk.js.map",
+    "main.js": "/vieu/static/js/main.c3310ba5.chunk.js",
+    "main.js.map": "/vieu/static/js/main.c3310ba5.chunk.js.map",
     "runtime-main.js": "/vieu/static/js/runtime-main.96d133b5.js",
     "runtime-main.js.map": "/vieu/static/js/runtime-main.96d133b5.js.map",
-    "static/js/2.95cb4830.chunk.js": "/vieu/static/js/2.95cb4830.chunk.js",
-    "static/js/2.95cb4830.chunk.js.map": "/vieu/static/js/2.95cb4830.chunk.js.map",
+    "static/js/2.784164a1.chunk.js": "/vieu/static/js/2.784164a1.chunk.js",
+    "static/js/2.784164a1.chunk.js.map": "/vieu/static/js/2.784164a1.chunk.js.map",
     "index.html": "/vieu/index.html",
-    "precache-manifest.a06523564b783b7d17f6bff08b48eee7.js": "/vieu/precache-manifest.a06523564b783b7d17f6bff08b48eee7.js",
+    "precache-manifest.ee24dcf986e9669f62b633048c3e06ef.js": "/vieu/precache-manifest.ee24dcf986e9669f62b633048c3e06ef.js",
     "service-worker.js": "/vieu/service-worker.js",
     "static/css/main.ee1ce41d.chunk.css.map": "/vieu/static/css/main.ee1ce41d.chunk.css.map",
-    "static/js/2.95cb4830.chunk.js.LICENSE.txt": "/vieu/static/js/2.95cb4830.chunk.js.LICENSE.txt",
+    "static/js/2.784164a1.chunk.js.LICENSE.txt": "/vieu/static/js/2.784164a1.chunk.js.LICENSE.txt",
     "static/media/clipPath.svg": "/vieu/static/media/clipPath.16143cfe.svg",
     "static/media/mic-off.svg": "/vieu/static/media/mic-off.4b9ed2d1.svg",
     "static/media/mic-on.svg": "/vieu/static/media/mic-on.e74d3c4c.svg",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.96d133b5.js",
-    "static/js/2.95cb4830.chunk.js",
+    "static/js/2.784164a1.chunk.js",
     "static/css/main.ee1ce41d.chunk.css",
-    "static/js/main.f612c55e.chunk.js"
+    "static/js/main.c3310ba5.chunk.js"
   ]
 }
