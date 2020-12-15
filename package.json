@@ -2,6 +2,7 @@
   "name": "vieu-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sastaachar.github.io/vieu",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -22,7 +23,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "svg-to-jsx": "svgr < src/assets/Misc/logo.svg > src/components/pages/main/Logo.jsx --svgo-config svgo.json"
+    "svg-to-jsx": "svgr < src/assets/Misc/logo.svg > src/components/pages/main/Logo.jsx --svgo-config svgo.json",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@svgr/cli": "^5.4.0"
+    "@svgr/cli": "^5.4.0",
+    "gh-pages": "^3.1.0"
   }
 }
