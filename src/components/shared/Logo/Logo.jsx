@@ -4,7 +4,7 @@ import "./style.css";
 
 const SvgComponent = (props) => (
   <div className="logo">
-    <svg classname="logoSvg" viewBox="17 14 83 81" fill="none" {...props}>
+    <svg className="logoSvg" viewBox="17 14 83 81" fill="none" {...props}>
       <ellipse
         rx={16.035}
         ry={16.988}
@@ -26,7 +26,7 @@ const SvgComponent = (props) => (
         fill="#3C419F"
       />
     </svg>
-    <span classname="logoText">vieu</span>
+    <span className="logoText">vieu</span>
   </div>
 );
 
