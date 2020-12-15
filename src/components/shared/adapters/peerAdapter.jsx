@@ -56,6 +56,16 @@ const PeerAdapter = (props) => {
             "stun:stun.l.google.com",
           ],
         },
+        {
+          urls: "turn:relay.backups.cz",
+          credential: "webrtc",
+          username: "webrtc",
+        },
+        {
+          urls: "turn:relay.backups.cz?transport=tcp",
+          credential: "webrtc",
+          username: "webrtc",
+        },
       ],
     });
 
