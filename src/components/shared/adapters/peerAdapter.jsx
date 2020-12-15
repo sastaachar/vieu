@@ -48,7 +48,13 @@ const PeerAdapter = (props) => {
     const peer = new RTCPeerConnection({
       iceServers: [
         {
-          urls: ["stun:stun.stunprotocol.org"],
+          urls: [
+            "stun:stun4.l.google.com",
+            "stun:stun3.l.google.com",
+            "stun:stun2.l.google.com",
+            "stun:stun1.l.google.com",
+            "stun:stun.l.google.com",
+          ],
         },
       ],
     });
