@@ -46,27 +46,7 @@ const PeerAdapter = (props) => {
 
     // new peer
     const peer = new RTCPeerConnection({
-      iceServers: [
-        {
-          urls: [
-            "stun:stun4.l.google.com",
-            "stun:stun3.l.google.com",
-            "stun:stun2.l.google.com",
-            "stun:stun1.l.google.com",
-            "stun:stun.l.google.com:19302",
-          ],
-        },
-        {
-          urls: "turn:relay.backups.cz",
-          credential: "webrtc",
-          username: "webrtc",
-        },
-        {
-          urls: "turn:relay.backups.cz?transport=tcp",
-          credential: "webrtc",
-          username: "webrtc",
-        },
-      ],
+      iceServers: [],
     });
 
     // all payload.caller will be set by server while transport
