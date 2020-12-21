@@ -2,17 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 const PeerAdapter = (props) => {
-  // stores the actuall peers
+  // stores and access the actuall peers
   const peers = useRef({});
-
-  // all incoming streams
-  const [streams, setStreams] = useState({});
-
   // outgoing stream senders
   const senders = useRef({});
 
+  // all incoming streams
+  const [incomingTracks, setIncomingtracks] = useState({});
+  // all of users tracks
+  const [userStreams, setStreams] = useState({
+    userVideo: null,
+    userAudio: null,
+    screenVideo: null,
+  });
+
   // connection answered
+  // this will be usefull for knowing the existing connections
   const [connStatus, setStatus] = useState({});
+
   const newConn = (user_id) => {
     setStatus((prevState) => {
       // returning { ...prevState, [user_id]: true } directly wont work
@@ -26,6 +33,7 @@ const PeerAdapter = (props) => {
     peers.current[user_id]
       .createOffer()
       .then((newOffer) => {
+        console.log("Made new offer ", newOffer);
         return peers.current[user_id].setLocalDescription(newOffer);
       })
       .then(() => {
@@ -33,25 +41,47 @@ const PeerAdapter = (props) => {
           target: user_id,
           sdp: peers.current[user_id].localDescription,
         };
+        console.log("Sending new offer ", payload);
         props.socket.emit("OFFER", payload);
       })
       .catch((e) => console.log(e));
   };
+
   const createPeer = (user_id) => {
     if (peers.current[user_id]) {
       // a connection already exists
-
-      return;
+      return peers.current[user_id];
     }
 
     // new peer
     const peer = new RTCPeerConnection({
-      iceServers: [],
+      iceServers: [
+        {
+          urls: [
+            "stun:stun4.l.google.com",
+            "stun:stun3.l.google.com",
+            "stun:stun2.l.google.com",
+            "stun:stun1.l.google.com",
+            "stun:stun.l.google.com:19302",
+          ],
+        },
+        {
+          urls: "turn:relay.backups.cz",
+          credential: "webrtc",
+          username: "webrtc",
+        },
+        {
+          urls: "turn:relay.backups.cz?transport=tcp",
+          credential: "webrtc",
+          username: "webrtc",
+        },
+      ],
     });
 
     // all payload.caller will be set by server while transport
 
     // send ice to peer
+
     peer.onicecandidate = (e) => {
       // onicecandidate hanlder
       if (e.candidate) {
@@ -59,13 +89,18 @@ const PeerAdapter = (props) => {
           target: user_id,
           candidate: e.candidate,
         };
+        console.log("Sending a icecandidate ", payload);
         props.socket.emit("ICE_CANDIDATE", payload);
       }
     };
     // got new track for a remote peer i.e user_id
     peer.ontrack = (e) => {
       // new track is e.streams[0]
-      setStreams({ ...streams, [user_id]: e.streams[0] });
+      //TODO : a way to recogize which track is being send
+      setIncomingtracks({
+        ...incomingTracks,
+        [user_id]: { userVideo: e.streams[0] },
+      });
     };
 
     // need to negotiate || re-negotiate
@@ -77,55 +112,97 @@ const PeerAdapter = (props) => {
     return peer;
   };
 
+  const startConnection = (users) => {
+    // connect = create + call
+
+    // this is done so even if client passes single value this fn is valid
+    const allUsers = [].concat(users || []);
+
+    allUsers.forEach((user) => {
+      if (peers.current[user]) {
+        console.log("Already connected");
+        return;
+      }
+      createPeer(user.user_id);
+      callPeer(user.user_id);
+    });
+  };
+
+  const setTrack = (track, trackType) => {
+    if (!["userVideo", "userAudio", "screenVideo"].includes(trackType)) {
+      // not a valid trackType
+      return;
+    }
+
+    const newStream = new MediaStream([track]);
+    setStreams({ ...userStreams, [trackType]: newStream });
+
+    // send track to all
+    for (const user_id in peers.current) {
+      peers.current[user_id].addTrack(track, newStream);
+    }
+  };
+
+  // stop trackTypes for the given users
+  const stopOutgoingTracks = (trackType, users) => {
+    // perform sender.stop for all the users
+
+    userStreams[trackType].getTracks()[0].stop();
+    setStreams({ ...userStreams, [trackType]: null });
+  };
+
+  // stop trackTypes for the given users
+  const stopIncomingTracks = (users, trackTypes) => {
+    // perform track.stop for all corresponding track in streams
+  };
+
   useEffect(() => {
     // we only depend on socket changes
     // run this just once
     // prereq - user is in a room
-
-    // skip the first call
-    if (!props.socket) return;
-
     const { socket } = props;
+    // skip the first call
+    if (!socket) return;
 
-    props.socket.on(
-      "OFFER",
-      (offer) => {
-        // got a offer
+    console.log("Setting up socket", socket);
 
-        const user_id = offer.caller;
+    // initialize all the necessary
+    socket.on("OFFER", (offer) => {
+      // got a offer
 
-        let newRemotePeer = peers.current[user_id];
-        if (!newRemotePeer) {
-          // new user , first connection
-          newRemotePeer = createPeer(offer.caller);
-        }
-        // the offer desc we got
-        const desc = new RTCSessionDescription(offer.sdp);
+      const user_id = offer.caller;
+      console.log("Got offer from", user_id, " offer ", offer);
 
-        newRemotePeer
-          .setRemoteDescription(desc)
-          .then(() => {
-            // answer the call
-            return newRemotePeer.createAnswer();
-          })
-          .then((answer) => {
-            return newRemotePeer.setLocalDescription(answer);
-          })
-          .then(() => {
-            // send answer
-            const payload = {
-              target: user_id,
-              sdp: newRemotePeer.localDescription,
-            };
-            newConn(user_id);
+      let newRemotePeer = peers.current[user_id];
+      if (!newRemotePeer) {
+        // new user , first connection
+        newRemotePeer = createPeer(offer.caller);
+      }
+      // the offer desc we got
+      const desc = new RTCSessionDescription(offer.sdp);
 
-            props.socket.emit("ANSWER", payload);
-          });
-      },
-      [props.socket]
-    );
+      newRemotePeer
+        .setRemoteDescription(desc)
+        .then(() => {
+          // answer the call
+          return newRemotePeer.createAnswer();
+        })
+        .then((answer) => {
+          return newRemotePeer.setLocalDescription(answer);
+        })
+        .then(() => {
+          // send answer
+          const payload = {
+            target: user_id,
+            sdp: newRemotePeer.localDescription,
+          };
+          newConn(user_id);
+          console.log("Seding reply ", payload);
+          props.socket.emit("ANSWER", payload);
+        });
+    });
 
-    props.socket.on("ANSWER", (incoming) => {
+    socket.on("ANSWER", (incoming) => {
       // peer accepted our call
       // handle answer
 
@@ -133,27 +210,22 @@ const PeerAdapter = (props) => {
 
       peers.current[incoming.caller]
         .setRemoteDescription(desc)
-        .then((data) => {
+        .then(() => {
           // set conn as true
-
+          console.log("Got back reply from", incoming.caller);
           newConn(incoming.caller);
         })
         .catch((e) => console.log(e));
     });
 
-    props.socket.on("ICE_CANDIDATE", (iceCandidateMsg) => {
+    socket.on("ICE_CANDIDATE", (iceCandidateMsg) => {
       // add the ice as soon as we get
       // TODO - may change add based of remoteDesc status
+      console.log("Got a icecandidate ", iceCandidateMsg);
       const candidate = new RTCIceCandidate(iceCandidateMsg.candidate);
       peers.current[iceCandidateMsg.caller]
         .addIceCandidate(candidate)
         .catch((e) => console.log(e));
-    });
-
-    // call everyone
-    props.members.forEach(({ user_id }) => {
-      createPeer(user_id);
-      callPeer(user_id);
     });
 
     // cleanup
@@ -169,17 +241,21 @@ const PeerAdapter = (props) => {
   return (
     <>
       {React.cloneElement(props.children, {
-        // all the remote peers
-        peers: peers.current,
         // all the remote streams
-        streams,
-        // senders of my stream
-        senders: senders.current,
+        incomingTracks,
         // connnection status of all peers
         connStatus,
-        // to create a new peer
-        createPeer,
-        callPeer,
+        // users tracks
+        userStreams: userStreams,
+        // set track
+        setTrack,
+        // stop recieving a track to users
+        stopIncomingTracks,
+        // stop sending a track to users
+        stopOutgoingTracks,
+        // start a connection with a user
+        startConnection,
+        //TODO : add stopConnection
       })}
     </>
   );
@@ -187,7 +263,6 @@ const PeerAdapter = (props) => {
 
 const mapStateToProps = (state) => ({
   socket: state.socketData.socket,
-  members: state.roomData.members,
 });
 
 export default connect(mapStateToProps, null)(PeerAdapter);
