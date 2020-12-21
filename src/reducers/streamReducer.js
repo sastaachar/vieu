@@ -1,8 +1,11 @@
+//TODO : remove this
+
 import { CHANGE_STREAM_STATE } from "../actions/type";
 
 const initialState = {
-  video: false,
-  audio: false,
+  userVideo: false,
+  userAudio: false,
+  screenVideo: false,
 };
 
 export default function (state = initialState, action) {
@@ -11,8 +14,7 @@ export default function (state = initialState, action) {
     case CHANGE_STREAM_STATE:
       return {
         ...state,
-        video: action.payload.video,
-        audio: action.payload.audio,
+        ...action.payload,
       };
 
     default:
