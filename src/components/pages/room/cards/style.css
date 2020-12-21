@@ -1,47 +1,48 @@
 .cardContainer {
-    position: relative;
-    /* this with defines width of video */
-    width: 150px;
-    background: grey;
-    padding : 3px;
-    border-radius: 13px;
+  position: relative;
+  /* this with defines width of video */
+  width: 150px;
+  background: grey;
+  padding: 20px;
+  border-radius: 13px;
 }
 
 .cardContainer span {
-    display: none;
+  display: none;
 }
 
 .cardContainer:hover span {
-    display: block;
+  display: block;
 }
 
 .cardContainer span {
-    position: absolute;
-    bottom: 0;
-    animation: appear 0.5s ease;
+  position: absolute;
+  bottom: 0;
+  animation: appear 0.5s ease;
 }
 
 @keyframes appear {
-    0% {
-        opacity: 0.3;
-        transform: translateY(9px);
-    }
-    100% {
-        opacity: 1;
-        bottom: 0;
-    }
+  0% {
+    opacity: 0.3;
+    transform: translateY(9px);
+  }
+  100% {
+    opacity: 1;
+    bottom: 0;
+  }
 }
 
 video {
-    display: block;
-    max-width: 100%;
-    min-width: 100%;
-    height: auto;
-    border-radius: 13px;
-    outline: none;
-    
+  display: block;
+  max-width: 100%;
+  min-width: 100%;
+  height: auto;
+  border-radius: 13px;
+  outline: none;
 }
 
-video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-play-button, video::-webkit-media-controls-pausebutton {
-    display: none;
+video::-webkit-media-controls-fullscreen-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-pausebutton {
+  display: none;
 }
