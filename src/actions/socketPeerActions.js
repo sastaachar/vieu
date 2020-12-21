@@ -8,7 +8,6 @@ import {
   SOCKETIO_CONNECTION_LOST,
   USER_JOINED,
   USER_LEFT,
-  SENDING_PEER_OFFER,
 } from "./type";
 
 export const connectToSocket = (cb) => (dispatch) => {

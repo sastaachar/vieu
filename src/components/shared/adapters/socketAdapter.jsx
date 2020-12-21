@@ -12,11 +12,12 @@ const SocketAdapter = (props) => {
   // on mount -> connect to server
   // fetch room details
 
+  const { connectToSocket, checkRoom, toJoinRoomId } = props;
   useEffect(() => {
-    props.connectToSocket((socket) => {
-      props.checkRoom({ socket, room_id: props.toJoinRoomId });
+    connectToSocket((socket) => {
+      checkRoom({ socket, room_id: toJoinRoomId });
     });
-  }, []);
+  }, [connectToSocket, checkRoom, toJoinRoomId]);
 
   // render children only after the socket gets connected
 

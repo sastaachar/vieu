@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import { joinRoom } from "../../../../actions/roomActions";
 
 // components
-import RoomDisplay from "../roomDisplay";
-import PeerAdapter from "../../../shared/adapters/peerAdapter";
 import { SimpleBtn, SimpleInp } from "../../../shared/Simple";
 
 import "./style.css";
@@ -25,14 +23,6 @@ const JoinRoom = (props) => {
       }
     );
   };
-
-  if (props.roomJoined) {
-    return (
-      <PeerAdapter>
-        <RoomDisplay />
-      </PeerAdapter>
-    );
-  }
 
   return (
     <div className="joinRoom-wrapper">
@@ -83,7 +73,6 @@ const mapStateToProps = (state) => ({
   room_id: state.roomData.room_id,
   members: state.roomData.chkMembers,
   socket: state.socketData.socket,
-  roomJoined: state.roomData.roomJoined,
 });
 
 export default connect(mapStateToProps, { joinRoom })(JoinRoom);
