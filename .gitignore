@@ -24,3 +24,5 @@ yarn-error.log*
 
 # ignore svgo 
 svgo.json
+# Local Netlify folder
+.netlify
