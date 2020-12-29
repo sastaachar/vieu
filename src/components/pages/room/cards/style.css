@@ -1,12 +1,32 @@
 .cardContainer {
   position: relative;
   /* this with defines width of video */
-  width: 150px;
-  background: grey;
-  padding: 20px;
-  border-radius: 13px;
+  width: fit-content;
+  background: #d93425;
+  padding: 2px;
+  border-radius: 15px;
+  transition: all 0.2s;
 }
 
+.cardContainer:hover {
+  padding-right: 30px;
+}
+
+.card-user-video {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.card-screen-video {
+  width: 300px;
+}
+.card-user-audio {
+  display: none;
+}
+
+.emptyUserCard img {
+  width: 100px;
+}
 .cardContainer span {
   display: none;
 }
