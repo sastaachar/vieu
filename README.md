@@ -29,3 +29,9 @@ The global state of the application is managed using Redux.
 <img src="./__docs/chatRoom1.png" style="margin : 0% 50%">
 
 <img src="./__docs/chatRoom2.png" style="margin : 0% 50%">
+
+## Hosted Examples
+
+[Heroku](https://vieu.herokuapp.com)
+
+[Netlify](https://vieu.netlify.app)
