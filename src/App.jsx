@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -10,6 +10,13 @@ import RoomPage from "./components/pages/room";
 import NotFoundPage from "./components/pages/notFound";
 
 function App() {
+  useEffect(() => {
+    //redirect to https
+    const url = window.location.origin;
+    if (!url.includes("localhost") && !url.includes("https")) {
+      window.location = `https:${url.split(":")[1]}`;
+    }
+  }, []);
   return (
     <Provider store={store}>
       <Switch>
