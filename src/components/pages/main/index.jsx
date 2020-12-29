@@ -35,7 +35,7 @@ const MainPage = (props) => {
 
   return (
     <div className="mainPage-wrapper clear">
-      <img src={Divider} id="divider" />
+      <img src={Divider} id="divider" alt="divider" />
       <section className="mainPg-left">
         <Logo />
 

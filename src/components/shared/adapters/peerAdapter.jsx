@@ -282,6 +282,8 @@ const PeerAdapter = (props) => {
       socket.off("ANSWER");
       socket.off("ICE_CANDIDATE");
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.socket]);
 
   // the children will be passed with new props

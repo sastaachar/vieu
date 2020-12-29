@@ -29,9 +29,12 @@ const RoomDisplay = (props) => {
   } = props;
 
   useEffect(() => {
+    // to be called only once
     // connect with everyone
     console.log("Calling everyone");
     props.startConnection(members);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getTrack = (trackType, cb) => {
