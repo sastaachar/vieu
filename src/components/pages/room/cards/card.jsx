@@ -54,7 +54,7 @@ const UserCard = (props) => {
         {screenVideo && (
           <video
             className="screen-video"
-            ref={screenVideo}
+            ref={screenVideoNode}
             playsInline
             autoPlay
             controls

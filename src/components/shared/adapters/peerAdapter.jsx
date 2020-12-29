@@ -97,9 +97,23 @@ const PeerAdapter = (props) => {
     peer.ontrack = (e) => {
       // new track is e.streams[0]
       //TODO : a way to recogize which track is being send
+
+      const trackType =
+        e.streams[0].getTracks()[0].kind === "video"
+          ? incomingTracks[user_id] && incomingTracks[user_id].userVideo
+            ? "screenVideo"
+            : "userVideo"
+          : "userAudio";
+
+      console.log(
+        trackType,
+        e.streams[0].getTracks()[0].kind,
+        incomingTracks[user_id]
+      );
+
       setIncomingtracks({
         ...incomingTracks,
-        [user_id]: { userVideo: e.streams[0] },
+        [user_id]: { [trackType]: e.streams[0] },
       });
     };
 
@@ -138,8 +152,17 @@ const PeerAdapter = (props) => {
     setStreams({ ...userStreams, [trackType]: newStream });
 
     // send track to all
+    //BUG : he native webrtc doesnt seem to support multiple video on same peer object
     for (const user_id in peers.current) {
-      peers.current[user_id].addTrack(track, newStream);
+      const sender = peers.current[user_id].addTrack(track, newStream);
+      if (!senders.current[user_id]) {
+        senders.current[user_id] = {
+          userVideo: null,
+          userAudio: null,
+          screenVideo: null,
+        };
+      }
+      senders.current[user_id][trackType] = sender;
     }
   };
 

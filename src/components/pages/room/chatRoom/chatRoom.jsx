@@ -56,6 +56,11 @@ const RoomDisplay = (props) => {
           console.log(err);
         });
     } else if (trackType === "screenVideo") {
+      //TODO: suupport for user screen audio
+      navigator.mediaDevices.getDisplayMedia({ video: true }).then((stream) => {
+        const videoTracks = stream.getVideoTracks();
+        cb(videoTracks[0]);
+      });
     }
   };
 
@@ -78,6 +83,8 @@ const RoomDisplay = (props) => {
 
   const micImg = props.streamState.userAudio ? MicOn : MicOff;
   const vidImg = props.streamState.userVideo ? VidcamOn : VidcamOff;
+  const screenImg = props.streamState.screenVideo ? VidcamOn : VidcamOff;
+
   const { streamState, members } = props;
   return (
     <div className="roomDisplay-wrapper">
@@ -110,6 +117,11 @@ const RoomDisplay = (props) => {
             className="btnCtrl"
             style={{ backgroundImage: `url(${vidImg})` }}
             onClick={() => changeState("userVideo")}
+          />
+          <button
+            className="btnCtrl"
+            style={{ backgroundImage: `url(${screenImg})` }}
+            onClick={() => changeState("screenVideo")}
           />
         </div>
       </div>
