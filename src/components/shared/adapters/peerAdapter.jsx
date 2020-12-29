@@ -16,6 +16,10 @@ const PeerAdapter = (props) => {
     screenVideo: null,
   });
 
+  // HOT FIX
+  // stores the state of recieving streams
+  const userStreamState = useRef({});
+
   // connection answered
   // this will be usefull for knowing the existing connections
   const [connStatus, setStatus] = useState({});
@@ -100,21 +104,36 @@ const PeerAdapter = (props) => {
 
       const trackType =
         e.streams[0].getTracks()[0].kind === "video"
-          ? incomingTracks[user_id] && incomingTracks[user_id].userVideo
+          ? userStreamState.current[user_id] &&
+            userStreamState.current[user_id].userVideo
             ? "screenVideo"
             : "userVideo"
           : "userAudio";
 
-      console.log(
-        trackType,
-        e.streams[0].getTracks()[0].kind,
-        incomingTracks[user_id]
-      );
+      console.log(userStreamState.current[user_id], trackType);
 
-      setIncomingtracks({
-        ...incomingTracks,
-        [user_id]: { [trackType]: e.streams[0] },
+      e.streams[0].onremovetrack = ({ track }) => {
+        console.log(user_id, " ", trackType, " was removed");
+        userStreamState.current[user_id][trackType] = false;
+        setIncomingtracks((prevState) => {
+          return {
+            ...prevState,
+            [user_id]: { ...prevState[user_id], [trackType]: null },
+          };
+        });
+      };
+
+      setIncomingtracks((prevState) => {
+        return {
+          ...prevState,
+          [user_id]: { ...prevState[user_id], [trackType]: e.streams[0] },
+        };
       });
+
+      userStreamState.current[user_id] = {
+        ...userStreamState.current[user_id],
+        [trackType]: true,
+      };
     };
 
     // need to negotiate || re-negotiate
@@ -171,6 +190,11 @@ const PeerAdapter = (props) => {
     // perform sender.stop for all the users
 
     userStreams[trackType].getTracks()[0].stop();
+
+    Object.keys(senders.current).forEach((user_id) => {
+      peers.current[user_id].removeTrack(senders.current[user_id][trackType]);
+    });
+
     setStreams({ ...userStreams, [trackType]: null });
   };
 
@@ -244,7 +268,7 @@ const PeerAdapter = (props) => {
     socket.on("ICE_CANDIDATE", (iceCandidateMsg) => {
       // add the ice as soon as we get
       // TODO - may change add based of remoteDesc status
-      console.log("Got a icecandidate ", iceCandidateMsg);
+
       const candidate = new RTCIceCandidate(iceCandidateMsg.candidate);
       peers.current[iceCandidateMsg.caller]
         .addIceCandidate(candidate)
