@@ -8,7 +8,7 @@ Webrtc natively supports peer-to-peer connection, and to accommodate a chat room
 
 <img src="./__docs/mesh.png" style="width : 500px; margin : 0% 50% ">
 
-This type of architecture is not al all scalable, but since this project was made just for experimental purposes i've used this here , although for better scalability and performance a Selective Forwarding Unit or Multipoint Conferencing Unit can be considered, for more info check [here](https://www.callstats.io/blog/webrtc-architectures-explained-in-5-minutes-or-less).
+This type of architecture is not at all scalable, but since this project was made just for experimental purposes i've used this here , although for better scalability and performance a Selective Forwarding Unit or Multipoint Conferencing Unit can be considered, for more info check [here](https://www.callstats.io/blog/webrtc-architectures-explained-in-5-minutes-or-less).
 
 <img src="https://user-images.githubusercontent.com/42416647/103297603-a5703280-4a1e-11eb-9968-abd6ffc8e534.gif" style="margin : 0% 50%">
 
