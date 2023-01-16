@@ -37,4 +37,4 @@ export const PEER_PORT = process.env.NODE_ENV === "development" ? 9000 : 443;
 export const SERVER_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
-    : "https://vieu-server.herokuapp.com";
+    : "https://vieu-server-production.up.railway.app";
